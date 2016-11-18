@@ -1,5 +1,8 @@
 <template>
 	<el-menu default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+	  <el-col :span="4" style="text-align: center">
+	  	<h3>Admin</h3>
+	  </el-col>
 	  <el-menu-item index="1">
 	  	<i class="material-icons">menu</i>
 	  </el-menu-item>
