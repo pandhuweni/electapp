@@ -19,7 +19,7 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li>
-	        	<a href="#" id="sidenav-toggle">
+	        	<a href="#" id="sidenav-toggle" @click="sideNavtoggle">
 	        		<i class="fa fa-bars"></i>
 	        	</a>
 	        </li>
@@ -53,54 +53,68 @@
 	</nav>	
 	<div class="col-md-2 col-xs-2 side navbar-inverse navbar-fixed-top">
 	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse sidenav" >
-	      <ul class="nav nav-pills nav-stacked" id="sidenav">
+	    <div  class="collapse navbar-collapse sidenav" >
+	      <ul class="nav nav-pills nav-stacked"  id="sidenav">
 	        <li>
 	        	<a href="#" style="content:''">
 	        		<i class="fa fa-dashboard"></i>
-	        		<span>Dashboard</span>
+	        		<span v-if="isSidenavActive">Dashboard</span>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-list-ul"></i>
-	        		<span>Vote List</span>
+							<transition name="fade">
+	        		<span v-if="isSidenavActive">Vote List</span>
+							</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-line-chart"></i>
-	        		<span>Statistic Data</span>
+							<transition name="fade">
+	        		<span v-if="isSidenavActive">Statistic Data</span>
+							</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-magic"></i>
-	        		<span>Analysis</span>
+							<transition name="fade">
+	        		<span v-if="isSidenavActive">Analysis</span>
+							</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-file-text-o"></i>
-	        		<span>Report</span>
+							<transition name="fade">
+	        		<span v-if="isSidenavActive">Report</span>
+							</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-envelope-o"></i>
-	        		<span>Inbox</span>
+							<transition name="fade">
+	        		<span v-if="isSidenavActive">Inbox</span>
+							</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-gear"></i>
-	        		<span>Setting</span>
+							<transition name="fade">
+	        		<span v-if="isSidenavActive">Setting</span>
+							</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-question-circle-o"></i>
-	        		<span>Help</span>
+							<transition name="fade">
+	        		<span v-if="isSidenavActive">Help</span>
+							</transition>
 	        	</a>
 	        </li>
 	      </ul>
@@ -114,11 +128,21 @@
 <script>
   export default {
   	name: 'navbar',
+		data() {
+			return{
+				isSidenavActive: true,
+			}
+		},
     methods: {
+			sideNavtoggle() { 
+				this.isSidenavActive = !this.isSidenavActive
+				$('.col-md-2').toggleClass("collapsed-coy",500);
+				$('.navbar-brand').toggle();
+			}
     }
   }
 
-  $(document).ready(function(){
+/*  $(document).ready(function(){
 	$('#sidenav-toggle').click(function(){	
 		if($('.sidenav .nav li a span').hasClass('unav')){
 			$('.sidenav .nav li a span').removeClass('unav');
@@ -130,7 +154,7 @@
 		$('.col-md-2').toggleClass("collapsed-coy",500);
 		$('.navbar-brand').toggle();
 	});
-  });
+  }); */
 </script>
 
 <style>
@@ -152,6 +176,9 @@
     transition: opacity 0.5s linear;
 }
 
+.unav {
+	display:none;
+}
 .show{
     opacity:1;
 }
