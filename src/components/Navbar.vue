@@ -58,14 +58,16 @@
 	        <li>
 	        	<a href="#" style="content:''">
 	        		<i class="fa fa-dashboard"></i>
+							<transition name="fade">
 	        		<span v-if="isSidenavActive">Dashboard</span>
+							</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-list-ul"></i>
 							<transition name="fade">
-	        		<span v-if="isSidenavActive">Vote List</span>
+	        			<span v-if="isSidenavActive">Vote List</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -73,7 +75,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-line-chart"></i>
 							<transition name="fade">
-	        		<span v-if="isSidenavActive">Statistic Data</span>
+	        			<span v-if="isSidenavActive">Statistic Data</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -81,7 +83,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-magic"></i>
 							<transition name="fade">
-	        		<span v-if="isSidenavActive">Analysis</span>
+	        			<span v-if="isSidenavActive">Analysis</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -89,7 +91,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-file-text-o"></i>
 							<transition name="fade">
-	        		<span v-if="isSidenavActive">Report</span>
+	        			<span v-if="isSidenavActive">Report</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -97,7 +99,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-envelope-o"></i>
 							<transition name="fade">
-	        		<span v-if="isSidenavActive">Inbox</span>
+	        			<span v-if="isSidenavActive">Inbox</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -105,7 +107,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-gear"></i>
 							<transition name="fade">
-	        		<span v-if="isSidenavActive">Setting</span>
+	        			<span v-if="isSidenavActive">Setting</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -113,7 +115,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-question-circle-o"></i>
 							<transition name="fade">
-	        		<span v-if="isSidenavActive">Help</span>
+	        			<span v-if="isSidenavActive">Help</span>
 							</transition>
 	        	</a>
 	        </li>
