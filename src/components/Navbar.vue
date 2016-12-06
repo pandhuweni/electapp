@@ -3,7 +3,7 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header col-md-2 col-sm-3">	
+	    <div class="collapsed-ele navbar-header col-md-2 col-sm-3">	
 	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 	        <span class="sr-only">Toggle navigation</span>
 		    <i class="fa fa-bars"></i>
@@ -23,7 +23,6 @@
 	        		<i class="fa fa-bars"></i>
 	        	</a>
 	        </li>
-	       
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	        <li class="active">
@@ -51,15 +50,16 @@
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>	
-	<div class="col-md-2 col-xs-2 side navbar-inverse navbar-fixed-top">
+	<div class="collapsed-ele col-md-2 col-sm-1 side navbar-inverse navbar-fixed-top">
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div  class="collapse navbar-collapse sidenav" >
 	      <ul class="nav nav-pills nav-stacked"  id="sidenav">
+	        
 	        <li>
 	        	<a href="#" style="content:''">
 	        		<i class="fa fa-dashboard"></i>
 							<transition name="fade">
-	        		<span v-if="isSidenavActive">Dashboard</span>
+	        		<span v-if="isSidenavActive" class="hidden-sm">Dashboard</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -67,7 +67,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-list-ul"></i>
 							<transition name="fade">
-	        			<span v-if="isSidenavActive">Vote List</span>
+	        			<span v-if="isSidenavActive" class="hidden-sm">Vote List</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -75,7 +75,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-line-chart"></i>
 							<transition name="fade">
-	        			<span v-if="isSidenavActive">Statistic Data</span>
+	        			<span v-if="isSidenavActive" class="hidden-sm">Statistic Data</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -83,7 +83,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-magic"></i>
 							<transition name="fade">
-	        			<span v-if="isSidenavActive">Analysis</span>
+	        			<span v-if="isSidenavActive" class="hidden-sm">Analysis</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -91,7 +91,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-file-text-o"></i>
 							<transition name="fade">
-	        			<span v-if="isSidenavActive">Report</span>
+	        			<span v-if="isSidenavActive" class="hidden-sm">Report</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -99,7 +99,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-envelope-o"></i>
 							<transition name="fade">
-	        			<span v-if="isSidenavActive">Inbox</span>
+	        			<span v-if="isSidenavActive" class="hidden-sm">Inbox</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -107,7 +107,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-gear"></i>
 							<transition name="fade">
-	        			<span v-if="isSidenavActive">Setting</span>
+	        			<span v-if="isSidenavActive" class="hidden-sm">Setting</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -115,7 +115,7 @@
 	        	<a href="#">
 	        		<i class="fa fa-question-circle-o"></i>
 							<transition name="fade">
-	        			<span v-if="isSidenavActive">Help</span>
+	        			<span v-if="isSidenavActive" class="hidden-sm">Help</span>
 							</transition>
 	        	</a>
 	        </li>
@@ -138,8 +138,9 @@
     methods: {
 			sideNavtoggle() { 
 				this.isSidenavActive = !this.isSidenavActive
-				$('.col-md-2').toggleClass("collapsed-coy",500);
+				$('.collapsed-ele').toggleClass("collapsed-coy",500)
 				$('.navbar-brand').toggle();
+				//$('#sidenav li').toggleClass("center-logo").delay(1000);
 			}
     }
   }
@@ -178,6 +179,9 @@
     transition: opacity 0.5s linear;
 }
 
+.center-logo {
+	text-align: center;
+}
 .unav {
 	display:none;
 }
