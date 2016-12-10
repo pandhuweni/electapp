@@ -1,6 +1,6 @@
 <template>
 <div>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-fixed-top" id="main-nav" >
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header col-md-2 col-sm-3">	
@@ -51,6 +51,7 @@
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>	
+
 	<div class="col-md-2 col-xs-2 side navbar-inverse navbar-fixed-top">
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div  class="collapse navbar-collapse sidenav" >
@@ -140,23 +141,21 @@
 				this.isSidenavActive = !this.isSidenavActive
 				$('.col-md-2').toggleClass("collapsed-coy",500);
 				$('.navbar-brand').toggle();
+			},
+			navToBottom(){
+				if($(window).width() < 767){
+		    		$('#main-nav').addClass('navbar-fixed-bottom');
+		    	}else{
+		    		$('#main-nav').removeClass('navbar-fixed-bottom');
+		    	}
 			}
+    },
+    created: function(){
+    	this.navToBottom();
+    	alert($(window).width());
     }
   }
 
-/*  $(document).ready(function(){
-	$('#sidenav-toggle').click(function(){	
-		if($('.sidenav .nav li a span').hasClass('unav')){
-			$('.sidenav .nav li a span').removeClass('unav');
-			$('.sidenav .nav li a span').delay(500).fadeIn(200);
-		}else{
-			$('.sidenav .nav li a span').addClass('unav');
-			$('.sidenav .nav li a span').fadeOut(200);
-		}
-		$('.col-md-2').toggleClass("collapsed-coy",500);
-		$('.navbar-brand').toggle();
-	});
-  }); */
 </script>
 
 <style>
