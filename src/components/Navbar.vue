@@ -1,31 +1,22 @@
 <template>
 <div>
 	<nav class="navbar navbar-inverse navbar-fixed-top" id="main-nav" >
-	  <div class="container-fluid">
+	  <div class="container-fluid ">
 	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header col-md-2 col-sm-3">	
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	    <div class="navbar-header" >	
+	      <button type="button" class="navbar-toggle hidden-lg hidden-md" 
+	      @click="sideNavToggle">
 	        <span class="sr-only">Toggle navigation</span>
 		    <i class="fa fa-bars"></i>
 	      </button>
-	       <a class="navbar-brand" href="#" hidden>
-	      	<img src="../assets/fav.png">
+	       <a class="navbar-brand" href="#">
+	      	Electapp
 	      </a>
-	      <a class="navbar-brand" href="#">Electapp</a>
 	     
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav">
-	        <li>
-	        	<a href="#" id="sidenav-toggle" @click="sideNavtoggle">
-	        		<i class="fa fa-bars"></i>
-	        	</a>
-	        </li>
-	       
-	      </ul>
-	      <ul class="nav navbar-nav navbar-right">
+	      <ul class="nav nav-pills navbar-right  hidden-sm hidden-xs">
 	        <li class="active">
 	        	<a href="#">
 	        		<i class="fa fa-search"></i>
@@ -48,82 +39,99 @@
 	          </ul>
 	        </li>
 	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
+	  </div>
 	</nav>	
 
-	<div class="col-md-2 col-xs-2 side navbar-inverse navbar-fixed-top">
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div  class="collapse navbar-collapse sidenav" >
-	      <ul class="nav nav-pills nav-stacked"  id="sidenav">
+	<!--Bottom Navbar-->
+	<ul class="nav navbar-inverse nav-pills nav-justified navbar-fixed-bottom visible-sm-inline-block visible-xs-inline-block">
+        <li class="active">
+        	<a href="#">
+        		<i class="fa fa-search"></i>
+        	</a>
+        </li>
+        <li>
+        	<a href="#">
+        		<i class="fa fa-bell-o"></i>
+        	</a>
+        </li>
+
+        <li>
+        	<a href="#">
+        		<i class="fa fa-user-o"></i>
+        	</a>
+        </li>
+      </ul>
+	
+
+      <!--side navbar-->
+      <div class="sidenav navbar-inverse" id="sidenav">
+      	<ul class="nav nav-pills nav-stacked sidenavul">
 	        <li>
 	        	<a href="#" style="content:''">
-	        		<i class="fa fa-dashboard"></i>
-							<transition name="fade">
-	        		<span v-if="isSidenavActive">Dashboard</span>
-							</transition>
+	        		<i class="fa fa-dashboard" ></i>
+					<transition name="fade">
+	    				<span>Dashboard</span>
+					</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-list-ul"></i>
-							<transition name="fade">
-	        			<span v-if="isSidenavActive">Vote List</span>
-							</transition>
+					<transition name="fade">
+						<span>Vote List</span>
+					</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-line-chart"></i>
-							<transition name="fade">
-	        			<span v-if="isSidenavActive">Statistic Data</span>
-							</transition>
+					<transition name="fade">
+	        			<span>Statistic Data</span>
+					</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-magic"></i>
-							<transition name="fade">
-	        			<span v-if="isSidenavActive">Analysis</span>
-							</transition>
+					<transition name="fade">
+	        			<span>Analysis</span>
+					</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-file-text-o"></i>
-							<transition name="fade">
-	        			<span v-if="isSidenavActive">Report</span>
-							</transition>
+					<transition name="fade">
+	        			<span>Report</span>
+					</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-envelope-o"></i>
-							<transition name="fade">
-	        			<span v-if="isSidenavActive">Inbox</span>
-							</transition>
+					<transition name="fade">
+	        			<span>Inbox</span>
+					</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-gear"></i>
-							<transition name="fade">
-	        			<span v-if="isSidenavActive">Setting</span>
-							</transition>
+					<transition name="fade">
+	        			<span>Setting</span>
+					</transition>
 	        	</a>
 	        </li>
 	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-question-circle-o"></i>
-							<transition name="fade">
-	        			<span v-if="isSidenavActive">Help</span>
-							</transition>
+					<transition name="fade">
+	        			<span>Help</span>
+					</transition>
 	        	</a>
 	        </li>
-	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	</div>
-	
+	      </ul>      	
+      </div>
 </div>
 	
 </template>
@@ -133,26 +141,13 @@
   	name: 'navbar',
 		data() {
 			return{
-				isSidenavActive: true,
+				isSideNavActive: true,
 			}
 		},
     methods: {
-			sideNavtoggle() { 
-				this.isSidenavActive = !this.isSidenavActive
-				$('.col-md-2').toggleClass("collapsed-coy",500);
-				$('.navbar-brand').toggle();
-			},
-			navToBottom(){
-				if($(window).width() < 767){
-		    		$('#main-nav').addClass('navbar-fixed-bottom');
-		    	}else{
-		    		$('#main-nav').removeClass('navbar-fixed-bottom');
-		    	}
+			sideNavToggle() { 
+				$('#sidenav').toggleClass('showNav',100);
 			}
-    },
-    created: function(){
-    	this.navToBottom();
-    	alert($(window).width());
     }
   }
 
@@ -162,50 +157,74 @@
 	*{
 		border-radius: 0px !important;
 	}
+
+	/* animatio*/
+	@-webkit-keyframes navTrans {
+	    0%   {left: -200px;}
+	    25%  {left: -170px;}
+	    50%  {left: -150px;}
+	    75%  {left: -100px;}
+	    100% {left: 0px;}
+	}
+
+	/* Standard syntax */
+	@keyframes navTrans {
+	    0%   {left: -200px;}
+	    25%  {left: -170px;}
+	    50%  {left: -150px;}
+	    75%  {left: -100px;}
+	    100% {left: 0px;}
+	}
 	.navbar{
 		border:none !important;
+		min-height: 48px !important;
+		height: 48px;
 	}
 	.col-md-2{
 		padding: 0px;
 	}
 	.collapsed-coy{
 		width: 48px;
-		overflow: hidden;
 	}
 	.hide{
-    opacity:0;
-    transition: opacity 0.5s linear;
-}
+	    opacity:0;
+	    transition: opacity 0.5s linear;
+	}
+	.side-info{
+		width: 200px;
 
-.unav {
-	display:none;
-}
-.show{
-    opacity:1;
-}
+	}
+	.showNav{
+		display: block !important;
+		animation-name: navTrans;
+	    animation-duration: 1s;
+
+	}
 	.container-fluid{
 		padding-left: 0px;
+		height: 48px !important;
 	}
 	.navbar-brand{
-		padding-left: 30px;
-	}
-	.navbar-collapse.sidenav{
-		padding-left: 0px;
-		padding-right: 0px;
-	}
-	.side.navbar-fixed-top{
-		top:50px;
-		height: 100%;	
+		margin: 0px;
+		height: 48px;
 	}
 	a{
 		color: rgba(255,255,255,.75);
 	}
+	.nav-pills.navbar-right li a{
+		padding:14px 18px;
+
+	}
+	.nav-pills li a{
+		padding:14px 12px 14px 12px;
+	}
+	.nav-pills li a .fa{
+
+		text-align: center;
+	}
 	.sidenav .nav li .fa{
 		width: 24px;
 	}
-	.sidenav .nav li a{
-		
-	}	
 	.navbar-inverse{
 		background-color:rgba(0,128,128,1) ;
 	}
@@ -222,4 +241,56 @@
 	.navbar-inverse .navbar-nav>li>a{
 		color:#fff;
 	}
+	.dropdown-menu > li > a{
+		padding: 3px 20px !important;
+	}
+	.navbar-header{
+		height: 48px;
+	}
+	@media(max-width: 768px){
+		.nav.nav-justified > li{
+			display: table-cell !important;
+			width: 1%; 
+		}
+		.nav.nav-justified > li > a{
+			margin-bottom: 0px;
+		}
+
+		.navbar-toggle{
+			display: block !important;
+		}
+		#sidenav{
+			display: none;
+		}
+
+		.nav-pills li a{
+			padding:14px 48px 14px 12px;
+		}
+	}
+	@media(min-width: 767px){
+		.navbar-brand{
+			padding-left: 30px;
+		}		
+		.sidenavul a span{
+			display: none;
+		}
+
+	}
+	.sidenav{
+		min-height: 100% !important;
+		min-width: 48px;
+		position: absolute;
+		overflow: visible;
+		left: 0px;
+	}
+	.navbar-inverse .navbar-toggle{
+		background-color: transparent;
+		color: #fff;
+		border-color:#fff;
+		padding:4px 8px;
+		margin: 8px 8px;
+		float: left;
+		margin-left: 24px;
+	}
+
 </style>
