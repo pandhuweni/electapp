@@ -1,12 +1,16 @@
 <template>
   <div>
-    Chart
+    <ChartImpl></ChartImpl>
   </div>
 </template>
 
 <script>
+import ChartImpl from './ChartImpl'
 export default {
-  name: 'Chart'
+  name: 'Chart',
+  components: {
+    ChartImpl
+  }
 }
 </script>
 
