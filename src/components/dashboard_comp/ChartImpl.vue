@@ -10,12 +10,14 @@ export default Line.extend({
       labels: ['January', 'February', 'March', 'April'],
       datasets: [
         {
+          responsive: true,
+          maintainAspectRatio: false,
           label: 'GitHub Commits',
           height: '100px',
           fill: false,
           lineTension: 0,
           backgroundColor: '#f87979',
-          data: [40, 20, 12, 39]
+          data: [1, 2, 5, 4]
         }
       ]
     })

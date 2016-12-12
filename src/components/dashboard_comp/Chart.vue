@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chart-wrapper">
     <ChartImpl></ChartImpl>
   </div>
 </template>
@@ -15,5 +15,7 @@ export default {
 </script>
 
 <style>
+  .chart-wrapper {
 
+  }
 </style>
