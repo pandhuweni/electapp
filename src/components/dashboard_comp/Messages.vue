@@ -1,16 +1,22 @@
 <template>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4> Messages</h4>
-    </div>
-    <div class="panel-body"></div>
+  <div>
+    <card title="hai" :items="items"></card>
   </div>
 </template>
 <script>
-
+import card from '../Card'
+export default {
+  name: 'messages', 
+  components: {
+  	card
+  },
+  data() {
+		return {
+			items: [2, 3]
+		}
+	}
+}
 </script>
 <style>
-export default {
-  name: 'messages'
-}
+
 </style>

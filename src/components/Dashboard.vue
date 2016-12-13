@@ -19,8 +19,7 @@
   	</div>
     <div class="row">
       <div class="col-md-6">
-        <messages>
-        </messages>
+        <messages></messages>
       </div>
       <div class="col-md-6">lajsdh sakjdh sakjdh akjdh sakjh</div>
     </div>
