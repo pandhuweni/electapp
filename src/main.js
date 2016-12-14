@@ -10,21 +10,9 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/', component: App, name: 'home',
 		children:[
-	  	{
-	  		name: 'dashboard',
-	  		path: 'dashboard',
-        component: Dashboard
-	  	},
-	  	{
-	  		name: 'votelist',
-	  		path: 'votelist',
-        component: Votelist
-	  	},
-	  	{
-	  		name: 'login',
-	  		path: 'login',
-	  		component: Login
-	  	}
+	  	{ path: 'dashboard', name: 'dashboard', component: Dashboard	},
+	  	{ path: 'votelist', name: 'votelist', component: Votelist },
+	  	{ path: 'login', name: 'login', component: Login }
 	  ]
   }
 ]
@@ -32,6 +20,7 @@ const routes = [
 
 const router = new VueRouter({
 	hashbang: false,
+	mode: 'history', 
   linkActiveClass: 'active-class',
   routes // short for routes: routes
 })
