@@ -1,15 +1,17 @@
 <template>
-	<div class="container">
-    <topstats></topstats>
+	<div class="container-fluid">
+	<div class="row">
+    	<topstats></topstats>
+	</div>
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-9 col-sm-12">
         <div class="panel panel-default">
           <div class="panel-body">
             <chart></chart>
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 col-sm12">
         <div class="panel panel-default">
           <div class="panel-body ">
             <sidestats></sidestats>
@@ -50,17 +52,7 @@ export default {
     padding: 0px !important;
   }
   .panel-default {
-    border-radius: 5px !important;
+    border-radius: 4px !important;
   }
-  .stat-card{
-    margin: 15px;
-    border: 1px #ddd solid;
-    border-radius: 5px !important;
-  }
-  .stat-card .title {
-    color: rgba(0,128,128,1) ;
-  }
-  .stat-card .sub-title {
-    color: grey;
-  }
+  
 </style>
