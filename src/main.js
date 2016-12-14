@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import Dashboard from './components/Dashboard'
 import Votelist from './components/Votelist'
+import Login from './components/Login'
 var VueRouter = require('vue-router')
 
 Vue.use(VueRouter)
@@ -18,6 +19,11 @@ const routes = [
 	  		name: 'votelist',
 	  		path: 'votelist',
         component: Votelist
+	  	},
+	  	{
+	  		name: 'login',
+	  		path: 'login',
+	  		component: Login
 	  	}
 	  ]
   }

@@ -173,7 +173,10 @@ var request = require('superagent');
 .btn-primary{
 	background-color:rgba(0,128,128,.9) ;
 }
-.btn-primary:focus,{
+.btn-primary:focus{
+	background-color:rgba(0,128,128,.9) ;
+}
+.btn-primary:active{
 	background-color:rgba(0,128,128,.9) ;
 }
 .btn-primary:hover{
