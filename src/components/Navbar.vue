@@ -67,7 +67,7 @@
       <div class="sidenav navbar-inverse" id="sidenav">
       	<ul class="nav nav-pills nav-stacked sidenavul">
 	        <li>
-	        	<a href="#" style="content:''">
+	        	<a  style="content:''">
 	        		<i class="fa fa-dashboard" ></i>
 					<transition name="fade">
 	    				<span>Dashboard</span>
