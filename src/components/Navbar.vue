@@ -139,11 +139,11 @@
 <script>
   export default {
   	name: 'navbar',
-		data() {
-			return{
-				isSideNavActive: true,
-			}
-		},
+	data() {
+		return{
+			isSideNavActive: true,
+		}
+	},
     methods: {
 			sideNavToggle() { 
 				$('#sidenav').toggleClass('showNav',100);
@@ -197,7 +197,7 @@
 	.showNav{
 		display: block !important;
 		animation-name: navTrans;
-	    animation-duration: 1s;
+	    animation-duration: .1s;
 
 	}
 	.container-fluid{
@@ -217,6 +217,9 @@
 	}
 	.nav-pills li a{
 		padding:14px 12px 14px 12px;
+	}
+	.nav-pills li.active a, .nav-pills li:hover a, .nav-pills li.active:hover a{		
+		background-color:rgba(255,255,255,.1) ;
 	}
 	.nav-pills li a .fa{
 
@@ -274,17 +277,30 @@
 		.sidenavul a span{
 			display: none;
 		}
-
+		body{
+			padding-left: 48px !important;
+		}
 	}
 	.sidenav{
 		min-height: 100% !important;
 		min-width: 48px;
-		position: absolute;
+		position: fixed;
 		overflow: visible;
 		left: 0px;
+		z-index:9999;
 	}
-	.navbar-inverse .navbar-toggle{
+	.navbar-inverse .navbar-toggle, 
+	.navbar-inverse .navbar-toggle:focus{
 		background-color: transparent;
+		color: #fff;
+		border-color:#fff;
+		padding:4px 8px;
+		margin: 8px 8px;
+		float: left;
+		margin-left: 24px;
+	}
+	.navbar-inverse .navbar-toggle:hover{
+		background-color: rgba(0,128,128,.1);
 		color: #fff;
 		border-color:#fff;
 		padding:4px 8px;

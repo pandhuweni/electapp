@@ -16,6 +16,6 @@ export default {
 
 <style>
   .chart-wrapper {
-
+  	
   }
 </style>
