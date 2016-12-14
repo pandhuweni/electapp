@@ -67,20 +67,20 @@
       <div class="sidenav navbar-inverse" id="sidenav">
       	<ul class="nav nav-pills nav-stacked sidenavul">
 	        <li>
-	        	<a  style="content:''">
+	        	<router-link :to="{ name: 'dashboard'}">
 	        		<i class="fa fa-dashboard" ></i>
-					<transition name="fade">
-	    				<span>Dashboard</span>
-					</transition>
-	        	</a>
+								<transition name="fade">
+				    				<span>Dashboard</span>
+								</transition>
+	        	</router-link>
 	        </li>
 	        <li>
-	        	<a href="#">
+	        	<router-link :to="{ name: 'votelist'}">
 	        		<i class="fa fa-list-ul"></i>
-					<transition name="fade">
-						<span>Vote List</span>
-					</transition>
-	        	</a>
+								<transition name="fade">
+									<span>Vote List</span>
+								</transition>
+	        	</router-link>
 	        </li>
 	        <li>
 	        	<a href="#">

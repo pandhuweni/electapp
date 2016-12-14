@@ -23,7 +23,9 @@
       <div class="col-md-6">
         <messages title="Messages" :items="messages"></messages>
       </div>
-      <div class="col-md-6">lajsdh sakjdh sakjdh akjdh sakjh</div>
+      <div class="col-md-6">
+        <history title="History" :items="histories"></history>
+      </div>
     </div>
   </div>
 </template>
@@ -34,6 +36,7 @@ import topstats from './dashboard_comp/TopStats'
 import chart from './dashboard_comp/Chart'
 import sidestats from './dashboard_comp/SideStats'
 import messages from './dashboard_comp/Messages'
+import history from './dashboard_comp/History'
 
 export default {
 	name: 'dashboard',
@@ -41,7 +44,8 @@ export default {
     topstats,
     chart,
     sidestats,
-    messages
+    messages,
+    history
 	},
   data(){
     return {
@@ -54,6 +58,11 @@ export default {
         {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
         {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
         {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
+      ],
+      histories: [
+        {data: "this is some kind of weird task"},
+        {data: "this is some kind of weird task"},
+        {data: "this is some kind of weird task"},
       ]
     }
   }
