@@ -61,7 +61,8 @@
             'password': self.password
           }
           request.post("http://electa-engine.herokuapp.com/users/sessions")
-            .set({'Content-Type': 'application/json'})
+            .set({'Content-Type': 'application/jsonp'})
+            .set({'crossDomain': true})
             .send(req_body)
             .end(function(err,res){
               if (err) {
