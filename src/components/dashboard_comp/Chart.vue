@@ -15,7 +15,4 @@ export default {
 </script>
 
 <style>
-  .chart-wrapper {
-  	
-  }
 </style>
