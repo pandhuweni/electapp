@@ -57,7 +57,6 @@ export default {
         {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
         {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
         {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
       ],
       histories: [
         {data: "this is some kind of weird task"},

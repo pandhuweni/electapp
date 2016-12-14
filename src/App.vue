@@ -1,7 +1,6 @@
 <template>
   <div>
     <Navbar v-if="isLoggedIn"></Navbar>
-    <Login v-if="!isLoggedIn"></Login>
     <router-view></router-view>
   </div>
 </template>
@@ -14,7 +13,7 @@ import Login from './components/Login'
 export default {
   name: 'app',
   components: {
-    Navbar    
+    Navbar
   },
   data()  {
     return {
