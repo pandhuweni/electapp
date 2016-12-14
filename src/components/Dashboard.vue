@@ -19,7 +19,7 @@
   	</div>
     <div class="row">
       <div class="col-md-6">
-        <messages></messages>
+        <messages title="Messages" :items="messages"></messages>
       </div>
       <div class="col-md-6">lajsdh sakjdh sakjdh akjdh sakjh</div>
     </div>
@@ -40,7 +40,21 @@ export default {
     chart,
     sidestats,
     messages
-	}
+	},
+  data(){
+    return {
+      messages: [
+        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: true},
+        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: true},
+        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
+        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
+        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
+        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
+        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
+        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
+      ]
+    }
+  }
 }
 </script>
 
