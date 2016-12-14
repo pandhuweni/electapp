@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  var request = require('superagent');
+  var request = require('superagent')
   export default {
   	name: 'login',
     data(){
