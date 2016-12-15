@@ -17,7 +17,7 @@
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	      <ul class="nav nav-pills navbar-right  hidden-sm hidden-xs">
-	        <li class="active">
+	        <li>
 	        	<a href="#">
 	        		<i class="fa fa-search"></i>
 	        	</a>
@@ -66,7 +66,7 @@
       <!--side navbar-->
       <div class="sidenav navbar-inverse" id="sidenav">
       	<ul class="nav nav-pills nav-stacked sidenavul">
-	        <li>
+	        <li @click="toggleActive">
 	        	<router-link :to="{ name: 'dashboard'}">
 	        		<i class="fa fa-dashboard" ></i>
 								<transition name="fade">
@@ -107,12 +107,12 @@
 	        	</a>
 	        </li>
 	        <li>
-	        	<a href="#">
+	        		<router-link :to="{ name: 'messages'}">
 	        		<i class="fa fa-envelope-o"></i>
 					<transition name="fade">
 	        			<span>Inbox</span>
 					</transition>
-	        	</a>
+	        	</router-link>
 	        </li>
 	        <li>
 	        	<a href="#">
@@ -147,17 +147,24 @@
     methods: {
 			sideNavToggle() {
 				$('#sidenav').toggleClass('showNav',100);
+			},
+			toggleActive(){
+				$(this).toggleClass('active',100);
 			}
     }
   }
 
 </script>
 
-<style>
+<style scoped>
 	*{
 		border-radius: 0px !important;
 	}
 
+	.container-fluid{
+		padding-left: 0px;
+		height: 48px !important;
+	}
 	/* animatio*/
 	@-webkit-keyframes navTrans {
 	    0%   {left: -200px;}
@@ -199,10 +206,6 @@
 		animation-name: navTrans;
 	    animation-duration: .1s;
 
-	}
-	.container-fluid{
-		padding-left: 0px;
-		height: 48px !important;
 	}
 	.navbar-brand{
 		margin: 0px;
@@ -308,5 +311,16 @@
 		float: left;
 		margin-left: 24px;
 	}
+	a:focus, a:hover, a:active{
+		color:#fff !important;
+		background-color: rgba(255,255,255,.1) !important;
+	}
 
+</style>
+<style>
+	@media(min-width: 767px){
+		body{
+			padding-left: 48px !important;
+		}
+	}
 </style>

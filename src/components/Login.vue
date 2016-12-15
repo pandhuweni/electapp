@@ -23,8 +23,8 @@
                     <span class="clearfix"></span>
 	                </form>
 	            </div>
-              <div>{{email}}  </div>
-              <div>{{password}}  </div>
+              <div class="text-center">{{email}}  </div>
+              <div class="text-center">{{password}}  </div>
 	            <a  class="text-center new-account">Create an account </a>
 	        </div>
 	    </div>
@@ -43,6 +43,12 @@
         password: ''
       }
     },
+    watch: {
+        title () {
+            // only used when the title changes after page load
+            document.title = this.title;
+        }
+    },
   	methods: {
 		    checkAuth(){
 		      var auth_token = localStorage.getItem('token')
@@ -55,21 +61,22 @@
 		      }
 		    },
         login(){
-          this.inLoginProgress = 'fa fa-spinner fa-pulse fa-fw';
-          this.loginButton = 'Loading...';
           self = this;
+          self.inLoginProgress = 'fa fa-spinner fa-pulse fa-fw';
+          self.loginButton = 'Loading...';          
           var req_body = {
             'email': self.email,
             'password': self.password
           }
           request.post("http://electa-engine.herokuapp.com/users/sessions")
-            .set({'Content-Type': 'application/jsonp'})
+            .set({'Content-Type': 'application/json'})
             .set({'crossDomain': true})
             .send(req_body)
             .end(function(err,res){
               if (err) {
               self.isLoginProgress = '';
               alert("Error Login");
+              debugger
               console.log(err);
               }
               if (res.status==200) {
@@ -77,7 +84,7 @@
                 localStorage.clean;
                 localStorage.setItem('token', res.body.data.authentication_token);
                 self.$router.push({ name: 'dashboard'});
-              } else {
+              }else {
                 self.isLoginProgress = '';
                 alert("Password Salah");
               }
@@ -90,7 +97,7 @@
 		}
 
 </script>
-<style>
+<style scoped>
 	.form-signin
 {
     max-width: 330px;
@@ -179,6 +186,7 @@ label.remember input{
 a, a:hover, a:focus, a:active{
     color: rgba(0,128,128,.8);
     text-decoration: none;
+    cursor: pointer;
 }
 a:hover{
     color: rgba(0,128,128,1);

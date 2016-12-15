@@ -1,12 +1,11 @@
 <template>
   <div>
-    <Navbar ></Navbar>
+    <Navbar></Navbar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-
 import Navbar from './components/Navbar'
 import Login from './components/Login'
 
@@ -29,7 +28,7 @@ export default {
       }else{
         this.isLoggedIn = true
         this.$router.push('dashboard')
-      }
+      } 
     }
   },
   created: function(){
@@ -38,5 +37,5 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 </style>
