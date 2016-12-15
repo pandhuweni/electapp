@@ -3,8 +3,8 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top" id="main-nav" >
 	  <div class="container-fluid ">
 	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header" >	
-	      <button type="button" class="navbar-toggle hidden-lg hidden-md" 
+	    <div class="navbar-header" >
+	      <button type="button" class="navbar-toggle hidden-lg hidden-md"
 	      @click="sideNavToggle">
 	        <span class="sr-only">Toggle navigation</span>
 		    <i class="fa fa-bars"></i>
@@ -12,7 +12,7 @@
 	       <a class="navbar-brand" href="#">
 	      	Electapp
 	      </a>
-	     
+
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -40,7 +40,7 @@
 	        </li>
 	      </ul>
 	  </div>
-	</nav>	
+	</nav>
 
 	<!--Bottom Navbar-->
 	<ul class="nav navbar-inverse nav-pills nav-justified navbar-fixed-bottom visible-sm-inline-block visible-xs-inline-block">
@@ -61,7 +61,7 @@
         	</a>
         </li>
       </ul>
-	
+
 
       <!--side navbar-->
       <div class="sidenav navbar-inverse" id="sidenav">
@@ -130,10 +130,10 @@
 					</transition>
 	        	</a>
 	        </li>
-	      </ul>      	
+	      </ul>
       </div>
 </div>
-	
+
 </template>
 
 <script>
@@ -145,7 +145,7 @@
 		}
 	},
     methods: {
-			sideNavToggle() { 
+			sideNavToggle() {
 				$('#sidenav').toggleClass('showNav',100);
 			}
     }
@@ -218,7 +218,7 @@
 	.nav-pills li a{
 		padding:14px 12px 14px 12px;
 	}
-	.nav-pills li.active a, .nav-pills li:hover a, .nav-pills li.active:hover a{		
+	.nav-pills li.active a, .nav-pills li:hover a, .nav-pills li.active:hover a{
 		background-color:rgba(255,255,255,.1) ;
 	}
 	.nav-pills li a .fa{
@@ -253,7 +253,7 @@
 	@media(max-width: 768px){
 		.nav.nav-justified > li{
 			display: table-cell !important;
-			width: 1%; 
+			width: 1%;
 		}
 		.nav.nav-justified > li > a{
 			margin-bottom: 0px;
@@ -273,7 +273,7 @@
 	@media(min-width: 767px){
 		.navbar-brand{
 			padding-left: 30px;
-		}		
+		}
 		.sidenavul a span{
 			display: none;
 		}
@@ -289,7 +289,7 @@
 		left: 0px;
 		z-index:9999;
 	}
-	.navbar-inverse .navbar-toggle, 
+	.navbar-inverse .navbar-toggle,
 	.navbar-inverse .navbar-toggle:focus{
 		background-color: transparent;
 		color: #fff;

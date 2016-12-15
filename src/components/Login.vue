@@ -9,7 +9,7 @@
 	                <form class="form-signin">
 	                <input type="text" class="form-control" v-model="email" placeholder="Email" required  autofocus>
 	                <input type="password" v-model="password" class="form-control" placeholder="Password" required>
-	                <button class="btn btn-lg btn-primary btn-block" type="submit" @click='login' >
+	                <button class="btn btn-lg btn-primary btn-block" type="submit" @click.stop.prevent='login' >
                     <i :class="inLoginProgress"></i>
 	                    {{loginButton}}
                   </button>
@@ -18,12 +18,14 @@
 	                    Remember me
 	                </label>
 	                <a href="#" class="pull-right need-help">
-                        Need help? 
+                        Need help?
                     </a>
                     <span class="clearfix"></span>
 	                </form>
 	            </div>
-	            <a href="#" class="text-center new-account">Create an account </a>
+              <div>{{email}}  </div>
+              <div>{{password}}  </div>
+	            <a  class="text-center new-account">Create an account </a>
 	        </div>
 	    </div>
 		</div>
@@ -46,10 +48,10 @@
 		      var auth_token = localStorage.getItem('token')
 		      if(auth_token == null){
 		        this.isLoggedIn = false
-		        this.$router.push('login')
-		      }else{        
+		        this.$router.push({name:'login'})
+		      }else{
 		        this.isLoggedIn = true
-		        this.$router.push('dashboard')
+		        this.$router.push({name:'dashboard'})
 		      }
 		    },
         login(){
