@@ -12,7 +12,7 @@ const routes = [
 		children:[
 	  	{ path: 'dashboard', name: 'dashboard', component: Dashboard	},
 	  	{ path: 'votelist', name: 'votelist', component: Votelist },
-	  	{ path: 'login', name: 'login', component: Login },
+	  	{ path: 'login', name: 'login', component: Login }
 	  ]
   }
 ]

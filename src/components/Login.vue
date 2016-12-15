@@ -68,6 +68,7 @@
               if (err) {
               self.isLoginProgress = '';
               alert("Error Login");
+              console.log(err);
               }
               if (res.status==200) {
                 self.isLoginProgress = '';
