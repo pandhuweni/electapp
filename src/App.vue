@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar v-if="isLoggedIn"></Navbar>
+    <Navbar ></Navbar>
     <router-view></router-view>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
       if(auth_token == null){
         this.isLoggedIn = false
         this.$router.push('login')
-      }else{        
+      }else{
         this.isLoggedIn = true
         this.$router.push('dashboard')
       }
