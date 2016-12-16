@@ -1,13 +1,13 @@
 <template>
-	
+
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">	
+			<div class="col-md-12">
 				<h3>Messages</h3>
 			</div>
 			<div class="col-md-3 col-sm-12">
 				<MessagesNav></MessagesNav>
-			</div>	
+			</div>
 			<div class="col-md-9 col-sm-12">
     		<router-view></router-view>
 			</div>
@@ -17,11 +17,10 @@
 
 <script>
 import MessagesNav from './messages_comp/MessagesNav'
-import Inbox from './messages_comp/Inbox'
 export default {
 	name: 'messages',
 	components: {
-		MessagesNav, Inbox, 
+		MessagesNav
 	}
 }
 </script>
@@ -31,7 +30,7 @@ export default {
 ul.nav{
 	position:absolute;
 	width:100%;
-	
+
 }
 
 </style>
