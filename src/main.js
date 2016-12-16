@@ -18,7 +18,7 @@ const routes = [
 	  	{ path: 'login', name: 'login', component: Login },
 	  	{ path: 'messages', name: 'messages', component: Messages,
 	  		children: [
-	  			{ path: '/', name: 'messages', component: Inbox },
+	  			{ path: '/', name: 'messages_index', component: Inbox },
 	  			{ path: 'inbox', name: 'inbox', component: Inbox }
 	  		]
 	  	 }

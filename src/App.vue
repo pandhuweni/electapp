@@ -28,7 +28,7 @@ export default {
       }else{
         this.isLoggedIn = true
         this.$router.push('dashboard')
-      } 
+      }
     }
   },
   created: function(){

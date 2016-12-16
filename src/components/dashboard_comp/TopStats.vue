@@ -2,38 +2,78 @@
 	<div>
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="stat-card text-center">
-          <h3 class="title">2056</h3>
+          <h3 class="title">{{follower}}</h3>
           <h5 class="sub-title">Follower</h5>
         </div>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="stat-card text-center">
-          <h3 class="title">2056</h3>
-          <h5 class="sub-title">Follower</h5>
+          <h3 class="title">{{following}}</h3>
+          <h5 class="sub-title">Following</h5>
         </div>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="stat-card text-center">
-          <h3 class="title">2056</h3>
-          <h5 class="sub-title">Follower</h5>
+          <h3 class="title">{{total_vote}}</h3>
+          <h5 class="sub-title">Total Vote</h5>
         </div>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="stat-card text-center">
-          <h3 class="title">2056</h3>
-          <h5 class="sub-title">Follower</h5>
+          <h3 class="title">{{today_participant}}</h3>
+          <h5 class="sub-title">Today Participant</h5>
         </div>
       </div>
   </div>
 </template>
 
 <script>
+var request = require('superagent')
 export default {
-	name: 'TopStats'
+	name: 'TopStats',
+  data() {
+    return {
+      follower: 0,
+      following: 0,
+      total_vote: 0,
+      today_participant: 0
+    }
+  },
+  methods: {
+    loadData() {
+      self = this
+      var token = localStorage.getItem('token')
+      var req_body = {
+        'email': self.email,
+        'password': self.password
+      }
+      request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_top")
+        .set({"Authorization": "Token token="+token})
+        .set({'Content-Type': 'application/json'})
+        .set({'crossDomain': true})
+        .send(req_body)
+        .end(function(err,res){
+          if (err) {
+            console.log(err)
+          }
+          if (res.status==200) {
+            self.follower = res.follower_count
+            self.following = res.following_count
+            self.total_vote = res.total_vote
+            self.total_vote = res.today_participant_count
+          }else {
+            console.log(res)
+          }
+        });
+    }
+  },
+  created: function(){
+    this.loadData
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .stat-card{
 	margin: 16px 0px;
 	border: 1px #ddd solid;
