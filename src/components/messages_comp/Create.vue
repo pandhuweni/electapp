@@ -85,7 +85,7 @@
             }
             if (res.status==201) {
               self.isLoginProgress = '';
-              self.$router.push({ name: 'dashboard'});
+              self.$router.push({ name: 'inbox'});
               console.log("Succes Sending Message")
             }else {
               self.isLoginProgress = '';

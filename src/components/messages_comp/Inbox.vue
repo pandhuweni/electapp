@@ -23,11 +23,10 @@
 						  </div>
 					  </div>
 					  <div class="form-group">
-					    <select class="form-control" v-model="limit">
-							  <option>All</option>
-							  <option value="10">10</option>
-							  <option value="20">20</option>
-							  <option value="50">50</option>
+					    <select class="form-control" v-model="selected">
+						    <option v-for="option in options" v-bind:value="option.value">
+							    {{ option.text }}
+							  </option>
 							</select>
 					  </div>
 					  <div class="form-group">
@@ -76,7 +75,7 @@
 					<table class="table table-hover">
 						<tbody>
 
-							<tr class="unread" v-for="data in messages"><!--Uread Message-->
+							<tr class="unread" v-for="data in messages" @click.stop.prevent="readMessage(data.id)"><!--Uread Message-->
 								<td>	
 									<label>
 							      <input type="checkbox"> 
@@ -98,7 +97,7 @@
 				</div>
 			</div>
 		</div>
-		{{limit}}
+		{{selected}}
 	</div>
 </template>
 
@@ -111,10 +110,21 @@ var dateFormat = require('dateformat');
 			return{
 				messages: [],
 				page: 1,
-				limit: '',
 				getStatus:'',
 				message: '',
-				loadSpin: ''
+				loadSpin: '',
+				selected: '20',
+		    options: [
+		      { text: '10', value: '10' },
+		      { text: '20', value: '20' },
+		      { text: '50', value: '50' }
+		    ]
+			}
+		},
+		watch: {
+			selected: function(){
+				this.getAllMessages(this.selected)
+				console.log(this.selected)
 			}
 		},
 		methods:{
@@ -122,35 +132,38 @@ var dateFormat = require('dateformat');
 				var dateFull = dateFormat(converted_date, "mmm dS yyyy, h:MM TT");
 				return dateFull;
 			},
-			getAllMessages(){
+			readMessage(id){
+				alert('Inia alet');
+				this.$router.push({ name: 'read', params: { id: id }});
+			},
+			getAllMessages(limit_count){
 				self = this;				
 				self.loadSpin="fa fa-spinner fa-pulse fa-fw";
 				var page_no = self.page;
-				var limit_count = self.limit;
 				var auth_token = localStorage.getItem('token')
 				request.get("http://electa-engine.herokuapp.com/users/messages?page="+page_no+"&limit="+limit_count)
-        		.set({'Content-Type': 'application/json	'})
-        		.set({'Authorization': 'Token token='+auth_token})
-        		.set({'crossDomain': true})
-        		.end(function(err,res){
-        			if(err){
-        				console.log(err)
-        			}else{
-        				if(res.status=200){
-        					console.log(res)
-        					self.messages = res.body.data
-        					self.message = "Fetch="+res.body.status        					
-        					self.loadSpin=''
-        				}else{
-        					console.log(res)
-        					self.loadSpin ='fa fa-window-close'
-        				}
-        			}
-        		});
-			}
-		},
-		created: function(){
-			this.getAllMessages() 
+      		.set({'Content-Type': 'application/json	'})
+      		.set({'Authorization': 'Token token='+auth_token})
+      		.set({'crossDomain': true})
+      		.end(function(err,res){
+      			if(err){
+      				console.log(err)
+      			}else{
+      				if(res.status==200){
+      					console.log(res)
+      					self.messages = res.body.data.messages
+      					self.message = "Fetch="+res.body.status        					
+      					self.loadSpin=''
+      				}else{
+      					console.log(res)
+      					self.loadSpin ='fa fa-window-close'
+      				}
+      			}
+      		});
+				}
+			},
+			created: function(){
+				this.getAllMessages(this.selected) 
 		}
 
 	}

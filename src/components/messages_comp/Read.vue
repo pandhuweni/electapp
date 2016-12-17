@@ -1,4 +1,7 @@
 <template>
+	<div>
+		Ini read
+	</div>
 </template>
 
 <script>
