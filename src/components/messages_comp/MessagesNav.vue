@@ -1,11 +1,11 @@
 <template>	
 	<div>
 	<ul class="nav nav-pills nav-stacked navbar-fixed-top">
-			<li role="presentation" class="compose-button">
-				<button class="btn btn-block btn-primary hidden-sm hidden-xs">
-					Compose Message
-				</button> 
-			</li>
+				<router-link :to="{ name: 'create'}">
+					<button class="btn btn-block btn-primary hidden-sm hidden-xs compose-button">
+						Compose Message
+					</button> 
+				</router-link>
 
 		  <li role="presentation" class="compose-link">
 	    	<router-link :to="{ name: 'create'}">
@@ -85,10 +85,7 @@ a:hover, a:focus, a:active{
 li:hover a{
 	background-color:rgba(0,128,128,.1);
 }
-.compose{
-	padding: 2px 5px;
-	margin:10px 10px;
-}
+
 .nav-pills > li > a{
 	border-radius:0px;
 }
@@ -97,7 +94,11 @@ li:hover a{
 	background-color: rgba(0,128,128,.8) !important;
 }
 .compose-button{
-	padding:10px 16px;
+	margin:4% 8%;
+	width: 84%;
+}
+a.active-class:hover{
+	text-decoration: none;
 }
 @media(max-width: 992px){
 	ul.nav{

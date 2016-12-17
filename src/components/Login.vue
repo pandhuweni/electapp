@@ -75,8 +75,7 @@
             .end(function(err,res){
               if (err) {
               self.isLoginProgress = '';
-              alert("Error Login");
-              debugger
+              console.log("Error Login");
               console.log(err);
               }
               if (res.status==200) {
@@ -86,7 +85,7 @@
                 self.$router.push({ name: 'dashboard'});
               }else {
                 self.isLoginProgress = '';
-                alert("Password Salah");
+                console.log("Password Salah");
               }
           });
         }

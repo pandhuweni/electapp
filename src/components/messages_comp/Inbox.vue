@@ -23,11 +23,11 @@
 						  </div>
 					  </div>
 					  <div class="form-group">
-					    <select class="form-control">
+					    <select class="form-control" v-model="limit">
 							  <option>All</option>
-							  <option>20</option>
-							  <option>50</option>
-							  <option>100</option>
+							  <option value="10">10</option>
+							  <option value="20">20</option>
+							  <option value="50">50</option>
 							</select>
 					  </div>
 					  <div class="form-group">
@@ -56,7 +56,7 @@
 					  </div>
 					  <div class="form-group pull-right hidden-sm hidden-xs">
 					  	<label class="showing">
-					  		Showing 50 from 1200
+					  		Showing 0 - 10 from 1200
 					  	</label>
 					   	<div class="btn-group" role="group" aria-label="..."> 
 							  
@@ -83,58 +83,45 @@
 							    </label>
 								</td>
 								<td>
-									
+									{{data.from}}
 								</td>
 								<td>
-									<span></span>
-									Protes vote berkala tidak jelas sekali
+									{{data.subject}}
 								</td>
 								<td>
-									tanggal / jam
+									{{convertDate(data.created_at)}}
 								</td>
-							</tr>
-							<tr><!--Uread Message-->
-								<td>
-									<label>
-							      <input type="checkbox"> 
-							    </label>
-								</td>
-								<td>
-									Pandhu Weni
-								</td>
-								<td>
-									<span></span>
-									Protes vote berkala tidak jelas sekali
-								</td>
-								<td>
-									tanggal / jam
-								</td>
-							</tr>
+							</tr>							
 						</tbody>
 					</table>
 
 				</div>
 			</div>
 		</div>
-		{{message}}
+		{{limit}}
 	</div>
 </template>
 
 <script>
 var request = require('superagent');
+var dateFormat = require('dateformat');
 	export default {
 		name: 'inbox',
 		data() {
 			return{
 				messages: [],
 				page: 1,
-				limit: 10,
+				limit: '',
 				getStatus:'',
 				message: '',
 				loadSpin: ''
 			}
 		},
 		methods:{
+			convertDate(converted_date) {
+				var dateFull = dateFormat(converted_date, "mmm dS yyyy, h:MM TT");
+				return dateFull;
+			},
 			getAllMessages(){
 				self = this;				
 				self.loadSpin="fa fa-spinner fa-pulse fa-fw";
@@ -142,7 +129,7 @@ var request = require('superagent');
 				var limit_count = self.limit;
 				var auth_token = localStorage.getItem('token')
 				request.get("http://electa-engine.herokuapp.com/users/messages?page="+page_no+"&limit="+limit_count)
-        		.set({'Content-Type': 'application/jsonp'})
+        		.set({'Content-Type': 'application/json	'})
         		.set({'Authorization': 'Token token='+auth_token})
         		.set({'crossDomain': true})
         		.end(function(err,res){

@@ -6,7 +6,42 @@
 					<h4>Compose Message</h4>
 				</div>
 				<div class="col-md-12 col-sm-12">
-					
+					<div class="alert alert-danger alert-dismissible" role="alert" hidden>
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <strong>Failed to send message!</strong>
+					</div>
+					<div class="alert alert-success alert-dismissible" role="alert" hidden>
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <strong>Failed to send message!</strong>
+					</div>
+					<div class="alert alert-danger alert-dismissible" role="alert" hidden>
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <strong>Failed to send message!</strong>
+					</div>
+				  <div class="form-group">
+				    <label>To</label>
+				    	<input type="text" class="form-control" placeholder="Username" value="" v-model="toValue">
+				    <label class="label-below">example: john.doe</label> 
+				  </div>
+				  <div class="form-group">
+				    <label>Subject</label>
+				    	<input type="text" class="form-control" placeholder="Subject " value="" v-model="subjectValue">
+				    <label class="label-below">example: Protes Vote Berkala Tidak Jelas Sekali</label> 
+				  </div>
+				  <div class="form-group">
+				  	<label>Message Content</label>
+				  	<textarea class="form-control" v-model="contentValue">
+				  		
+				  	</textarea>
+				  </div>
+				  <button type="submit" class="btn btn-default" @click="sendMessages">
+				  	<i class="fa"  :class="isSendProgress"></i>
+				  	{{isButtonSending}}
+				  </button>
+				  <p>{{toValue}}</p>
+				  <p>{{subjectValue}}</p>
+				  <p>{{contentValue}}</p>
+				  <p></p>
 				</div>
 			</div>			
 		</div>
@@ -14,8 +49,58 @@
 </template>
 
 <script>
+  var request = require('superagent')
 	export default {
-		name: 'create'
+		name: 'create',
+		data(){
+			return{
+				isSendProgress: '',
+				isButtonSending: '',
+				toValue:'',
+				subjectValue:'',
+				contentValue:''
+			}
+		},
+		methods: {
+			sendMessages(){
+				self = this;
+        self.isSendProgress = 'fa-spinner fa-pulse fa-fw';
+        self.isButtonSending = 'Sending...';  
+        var auth_token = localStorage.getItem('token');        
+        var req_body = {
+          'to': self.toValue,
+          'subject': self.subjectValue,
+          'message': self.contentValue
+        }
+        request.post("https://electa-engine.herokuapp.com/users/messages")
+          .set({'Content-Type': 'application/json'})
+          .set({'Authorization': 'Token token='+auth_token})
+          .set({'crossDomain': true})
+          .send(req_body)
+          .end(function(err,res){
+            if (err) {
+            self.isLoginProgress = '';
+            console.log("Network Failed");
+            console.log(err);
+            }
+            if (res.status==201) {
+              self.isLoginProgress = '';
+              self.$router.push({ name: 'dashboard'});
+              console.log("Succes Sending Message")
+            }else {
+              self.isLoginProgress = '';
+              console.log("Failed Send");
+            }
+
+		        self.isSendProgress = 'fa-paper-plane';
+		        self.isButtonSending = 'Send'; 
+        });
+      }
+		},
+		created: function(){
+			this.isButtonSending="Send";
+			this.isSendProgress="fa-paper-plane"
+		}
 	}
 </script>
 
@@ -56,6 +141,10 @@
 	}
 	.checkbox.select-all{
 		margin-left: 8px;
+	}
+	.label-below{
+		font-size: 10px;
+		font-weight: 100;
 	}
 	/*responsive */
 	@media(max-width: 768px){

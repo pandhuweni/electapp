@@ -9,6 +9,7 @@ import Draft from './components/messages_comp/Draft'
 import Sent from './components/messages_comp/Sent'
 import Trash from './components/messages_comp/Trash'
 import Create from './components/messages_comp/Create'
+import Read from './components/messages_comp/Read'
 var VueRouter = require('vue-router')
 
 Vue.use(VueRouter)
@@ -27,9 +28,11 @@ const routes = [
 	  			{ path: 'draft', name: 'draft', component: Draft },
 	  			{ path: 'sent', name: 'sent', component: Sent },
 	  			{ path: 'trash', name: 'trash', component: Trash },
-	  			{ path: 'create', name: 'create', component: Create }
+	  			{ path: 'create', name: 'create', component: Create },
+	  			{ path: 'read', name: 'read', component: Read },
+	  	 		{ path: '*', redirect: 'inbox' }
 	  		]
-	  	 }
+	  	 },
 	  ]
   }
 ]

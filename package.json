@@ -9,6 +9,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "dateformat": "^2.0.0",
     "superagent": "^3.2.1",
     "vue": "^2.0.1",
     "vue-chartjs": "^2.2.1",
