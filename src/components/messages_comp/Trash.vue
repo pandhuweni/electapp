@@ -3,7 +3,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-8 col-sm-12 " >
-					<h4>Inbox</h4>
+					<h4>Trash</h4>
 				</div>
 				<div class="col-md-4 col-sm-12">
 					<div class="input-group">
@@ -69,21 +69,16 @@
 							</div>
 					  </div>
 					</form>
-
-					<center>
-						<p><i :class="loadSpin"></p>
-					</center>
 					<table class="table table-hover">
 						<tbody>
-
-							<tr class="unread" v-for="data in messages"><!--Uread Message-->
+							<tr><!--Uread Message-->
 								<td>	
 									<label>
 							      <input type="checkbox"> 
 							    </label>
 								</td>
 								<td>
-									
+									Pandhu Weni
 								</td>
 								<td>
 									<span></span>
@@ -115,57 +110,15 @@
 
 				</div>
 			</div>
+			
 		</div>
-		{{message}}
+
 	</div>
 </template>
 
 <script>
-var request = require('superagent');
 	export default {
-		name: 'inbox',
-		data() {
-			return{
-				messages: [],
-				page: 1,
-				limit: 10,
-				getStatus:'',
-				message: '',
-				loadSpin: ''
-			}
-		},
-		methods:{
-			getAllMessages(){
-				self = this;				
-				self.loadSpin="fa fa-spinner fa-pulse fa-fw";
-				var page_no = self.page;
-				var limit_count = self.limit;
-				var auth_token = localStorage.getItem('token')
-				request.get("http://electa-engine.herokuapp.com/users/messages?page="+page_no+"&limit="+limit_count)
-        		.set({'Content-Type': 'application/jsonp'})
-        		.set({'Authorization': 'Token token='+auth_token})
-        		.set({'crossDomain': true})
-        		.end(function(err,res){
-        			if(err){
-        				console.log(err)
-        			}else{
-        				if(res.status=200){
-        					console.log(res)
-        					self.messages = res.body.data
-        					self.message = "Fetch="+res.body.status        					
-        					self.loadSpin=''
-        				}else{
-        					console.log(res)
-        					self.loadSpin ='fa fa-window-close'
-        				}
-        			}
-        		});
-			}
-		},
-		created: function(){
-			this.getAllMessages() 
-		}
-
+		name: 'sent'
 	}
 </script>
 

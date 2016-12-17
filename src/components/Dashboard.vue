@@ -68,7 +68,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .panel-body {
     margin: 0px !important;
     padding: 0px !important;

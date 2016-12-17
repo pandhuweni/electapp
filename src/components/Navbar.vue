@@ -1,4 +1,4 @@
-<template>
+x<template>
 <div>
 	<nav class="navbar navbar-inverse navbar-fixed-top" id="main-nav" >
 	  <div class="container-fluid ">
@@ -107,7 +107,7 @@
 	        	</a>
 	        </li>
 	        <li>
-	        		<router-link :to="{ name: 'messages'}">
+	        		<router-link :to="{ name: 'messages_index'}">
 	        		<i class="fa fa-envelope-o"></i>
 					<transition name="fade">
 	        			<span>Inbox</span>

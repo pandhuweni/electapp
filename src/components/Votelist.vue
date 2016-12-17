@@ -51,16 +51,16 @@
 					</thead>
 					<tbody>
 						
-						<tr v-for="votes in votes">
+						<tr v-for="vote in votes">
 							<td>
-								{{votes.id}}
+								{{vote.id}}
 							</td>
 							<td>
-								{{votes.title}}
+								{{vote.title}}
 							</td>
 							<td>
 								<span class="label label-success">
-									{{votes.status}}
+									{{vote.status}}
 								</span>
 							</td>
 							<td>
@@ -145,9 +145,8 @@ var request = require('superagent');
         				if(res.status=200){
         					console.log(res)
         					self.votes = res.body.data
-        					if(res.body.data.count == 0){
-        						self.message = "You have not create any votes"
-        					}
+        					self.message = "votes="+res.body.data.count
+        					
         				}else{
         					console.log(res)
         				}
@@ -162,7 +161,7 @@ var request = require('superagent');
 	}
 </script>
 
-<style>
+<style scoped>
 .container-fluid{
 	padding-left: 16px;
 }
