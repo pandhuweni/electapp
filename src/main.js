@@ -10,6 +10,7 @@ import Sent from './components/messages_comp/Sent'
 import Trash from './components/messages_comp/Trash'
 import Create from './components/messages_comp/Create'
 import Read from './components/messages_comp/Read'
+import VotesTable from './components/votelist_comp/VotesTable'
 import store from './vuex/store'
 var VueRouter = require('vue-router')
 var Vuex = require('vuex')
@@ -21,7 +22,12 @@ const routes = [
   { path: '/', component: App, name: 'home',
 		children:[
 	  	{ path: 'dashboard', name: 'dashboard', component: Dashboard	},
-	  	{ path: 'votelist', name: 'votelist', component: Votelist },
+	  	{ path: 'votelist', name: 'votelist', component: Votelist,
+        children: [
+          { path: '/', name: 'votelist_index', component: VotesTable },
+          { path: '*', redirect: 'votelist' }
+        ]
+      },
 	  	{ path: 'login', name: 'login', component: Login },
 	  	{ path: 'messages', name: 'messages', component: Messages,
 	  		children: [
