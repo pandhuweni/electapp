@@ -37,7 +37,7 @@ import chart from './dashboard_comp/Chart'
 import sidestats from './dashboard_comp/SideStats'
 import messages from './dashboard_comp/Messages'
 import history from './dashboard_comp/History'
-
+var request = require('superagent');
 export default {
 	name: 'dashboard',
 	components: {
@@ -47,6 +47,9 @@ export default {
     messages,
     history
 	},
+  computed: {
+    currentTab: function() { return this.$store.state.sideStatsTab }
+  },
   data(){
     return {
       messages: [
@@ -71,15 +74,10 @@ export default {
     loadChartStats(based_on) {
       self = this
       var token = localStorage.getItem('token')
-      var req_body = {
-        'email': self.email,
-        'password': self.password
-      }
-      request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_chart")
+      request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_chart?based_on="+based_on)
         .set({"Authorization": "Token token="+token})
         .set({'Content-Type': 'application/json'})
         .set({'crossDomain': true})
-        .send(req_body)
         .end(function(err,res){
           if (err) {
             console.log(err)
@@ -96,6 +94,11 @@ export default {
             console.log(res)
           }
         });
+    }
+  },
+  watch: {
+    currentTab: function(){
+      this.loadChartStats(this.currentTab)
     }
   }
 }

@@ -1,10 +1,10 @@
 <template>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-9 col-sm-12">	
+			<div class="col-md-9 col-sm-12">
 				<h3>Votelist</h3>
-			</div>	
-			<div class="col-md-3 col-sm-12">					
+			</div>
+			<div class="col-md-3 col-sm-12">
 				<button class="btn btn-primary add-vote pull-right hidden-sm hidden-xs" >
 					<i class="fa fa-plus"></i> Add Vote
 				</button>
@@ -14,10 +14,10 @@
 				</button>
 			</div>
 			<div class="col-md-9 col-sm-12 form-inline">
-				<label>					
+				<label>
 					<select class="form-control">
 						<option>10</option>
-						<option>50</option>					
+						<option>50</option>
 						<option>100</option>
 					</select>
 				</label>
@@ -50,7 +50,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						
+
 						<tr v-for="vote in votes">
 							<td>
 								{{vote.id}}
@@ -110,7 +110,7 @@
 				</nav>
 			</div>
 		</div>
-		
+
 		<p>
 			{{message}}
 		</p>
@@ -135,8 +135,10 @@ var request = require('superagent');
 				self = this;
 				var page_no = self.page;
 				var limit_count = self.limit;
-				request.get("http://electa-engine.herokuapp.com/votes?page="+page_no+"&limit="+limit_count)
+				var token = localStorage.getItem('token')
+				request.get("http://electa-engine.herokuapp.com/users/vote?page="+page_no+"&limit="+limit_count)
         		.set({'Content-Type': 'application/jsonp'})
+        		.set({'Authorization': 'Token token='+token})
         		.set({'crossDomain': true})
         		.end(function(err,res){
         			if(err){
@@ -144,9 +146,9 @@ var request = require('superagent');
         			}else{
         				if(res.status=200){
         					console.log(res)
-        					self.votes = res.body.data
+        					self.votes = res.body.data.votes
         					self.message = "votes="+res.body.data.count
-        					
+
         				}else{
         					console.log(res)
         				}
@@ -156,7 +158,7 @@ var request = require('superagent');
 			}
 		},
 		created: function(){
-			this.getAllVotes() 
+			this.getAllVotes()
 		}
 	}
 </script>

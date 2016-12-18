@@ -4,18 +4,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 
   state: {
-    messages: []
+    sideStatsTab: 'recent'
   },
 
   actions: {
-    newMessage ({commit}, msg) {
-      commit('NEW_MESSAGE', msg)
+    changeTab ({commit}, tab) {
+      commit('CHANGE_TAB', tab)
     }
   },
 
   mutations: {
-    NEW_MESSAGE (state, msg) {
-      state.messages = msg
+    CHANGE_TAB (state, tab) {
+      state.sideStatsTab = tab
     }
   },
 

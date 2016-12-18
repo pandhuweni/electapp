@@ -8,42 +8,42 @@
       <li>
         <span class="bullet-sq"></span>
         Participant
-        <span class="pull-right secondary-text" >1345</span>
+        <span class="pull-right secondary-text">{{participant}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Today
-        <span class="pull-right secondary-text">125</span>
+        <span class="pull-right secondary-text">{{today}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Top Region
-        <span class="pull-right secondary-text">Sleman</span>
+        <span class="pull-right secondary-text">{{top_region}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Top Education
-        <span class="pull-right secondary-text">Doctor</span>
+        <span class="pull-right secondary-text">{{top_education}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Top Profesion
-        <span class="pull-right secondary-text">Doctor</span>
+        <span class="pull-right secondary-text">{{top_profesion}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Modus Choice
-        <span class="pull-right secondary-text">A</span>
+        <span class="pull-right secondary-text">{{modus_choice}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Max Value
-        <span class="pull-right secondary-text">1256</span>
+        <span class="pull-right secondary-text">{{max_value}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Min Value
-        <span class="pull-right secondary-text">127</span>
+        <span class="pull-right secondary-text">{{min_value}}</span>
       </li>
     </ul>
   </div>
@@ -53,20 +53,47 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'SideStats',
-  props: ['data', 'watcher-data'],
+  props: ['data'],
   computed: {
-    ...mapState({
-      messages: state => state.messages
-    })
+    currentTab: function() { return this.$store.state.sideStatsTab }
   },
   data(){
     return {
-      currentTab: this.$store.state.messages,
       isActiveRecent: true,
-      isActivePopular: false
+      isActivePopular: false,
+      participant: 0,
+      today: 0,
+      top_region: "",
+      top_education: "",
+      top_profesion: "",
+      modus_choice: "",
+      max_value: "",
+      min_value: ""
     }
   },
   methods: {
+    syncData() {
+      self = this
+      if (this.data.empty_data) {
+        this.participant= 0,
+        this.today= 0,
+        this.top_region= "0",
+        this.top_education= "0",
+        this.top_profesion= "0",
+        this.modus_choice= "0",
+        this.max_value= "0",
+        this.min_value= "0"
+      } else {
+        this.participant= 0,
+        this.today= 0,
+        this.top_region= "0",
+        this.top_education= "0",
+        this.top_profesion= "0",
+        this.modus_choice= "0",
+        this.max_value= "0",
+        this.min_value= "0"
+      }
+    },
     tabClickRecent() {
       this.isActivePopular = false
       this.isActiveRecent = true
@@ -80,9 +107,17 @@ export default {
       console.log(this.currentTab)
     },
     tryChangeTab(tab) {
-      this.newMessage(tab)
-    },
-    ...mapActions(['newMessage'])
+      this.$store.dispatch('changeTab', tab)
+    }
+  },
+  watch: {
+    currentTab: function() {
+      this.syncData()
+    }
+  },
+  created: function() {
+    this.syncData()
+    console.log(this.currentTab)
   }
 }
 </script>
