@@ -5,12 +5,12 @@
 				<h3>Votelist</h3>
 			</div>
 			<div class="col-md-3 col-sm-12">
-				<router-link :to="{ name: 'votelist_index'}">
+				<router-link :to="{ name: 'votelist_s'}">
 					<button class="btn btn-primary add-vote pull-right hidden-sm hidden-xs" >
 						<i class="fa fa-plus"></i> Add Vote
 					</button>
 				</router-link>
-				<router-link :to="{ name: 'votelist_index'}">
+				<router-link :to="{ name: 'votelist_s'}">
 					<button class="btn btn-primary add-vote btn-block hidden-md hidden-lg" >
 						<i class="fa fa-plus"></i> Add Vote
 					</button>

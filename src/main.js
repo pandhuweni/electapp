@@ -24,8 +24,8 @@ const routes = [
 	  	{ path: 'dashboard', name: 'dashboard', component: Dashboard	},
 	  	{ path: 'votelist', name: 'votelist', component: Votelist,
         children: [
-          { path: '/', name: 'votelist_index', component: VotesTable },
-          { path: '*', redirect: 'votelist' }
+          { path: '/', name: 'votelist_index', component:VotesTable },
+          { path: '/s', name: 'votelist_s', component:VotesTable },
         ]
       },
 	  	{ path: 'login', name: 'login', component: Login },
