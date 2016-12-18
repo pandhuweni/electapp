@@ -14,7 +14,7 @@
       <div class="col-md-3 col-sm12">
         <div class="panel panel-default">
           <div class="panel-body ">
-            <sidestats></sidestats>
+            <sidestats :data="sideStatData"></sidestats>
           </div>
         </div>
       </div>
@@ -62,7 +62,40 @@ export default {
         {data: "this is some kind of weird task"},
         {data: "this is some kind of weird task"},
         {data: "this is some kind of weird task"},
-      ]
+      ],
+      sideStatData:{},
+      chartData: {}
+    }
+  },
+  methods: {
+    loadChartStats(based_on) {
+      self = this
+      var token = localStorage.getItem('token')
+      var req_body = {
+        'email': self.email,
+        'password': self.password
+      }
+      request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_chart")
+        .set({"Authorization": "Token token="+token})
+        .set({'Content-Type': 'application/json'})
+        .set({'crossDomain': true})
+        .send(req_body)
+        .end(function(err,res){
+          if (err) {
+            console.log(err)
+          }
+          if (res.status==200) {
+            if(res.body.data.empty_data) {
+              console.log(res)
+            } else {
+              self.sideStatData = res.body.data.stat
+              self.chartData = res.body.data.chart
+              console.log(res)
+            }
+          }else {
+            console.log(res)
+          }
+        });
     }
   }
 }
@@ -76,5 +109,5 @@ export default {
   .panel-default {
     border-radius: 4px !important;
   }
-  
+
 </style>

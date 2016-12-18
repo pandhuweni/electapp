@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="top-tab">
-      <div class="tab-item text-center" @click="tabClick" :class="{ active: isActiveRecent }">Recent</div>
-      <div class="tab-item text-center" @click="tabClick" :class="{ active: isActivePopular }">Popular</div>
+      <div class="tab-item text-center" selected @click="tabClickRecent" :class="{ active: isActiveRecent }">Recent</div>
+      <div class="tab-item text-center" @click="tabClickPopular" :class="{ active: isActivePopular }">Popular</div>
     </div>
     <ul class="stat">
       <li>
@@ -50,25 +50,44 @@
 </template>
 
 <script>
-
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'SideStats',
+  props: ['data', 'watcher-data'],
+  computed: {
+    ...mapState({
+      messages: state => state.messages
+    })
+  },
   data(){
     return {
+      currentTab: this.$store.state.messages,
       isActiveRecent: true,
       isActivePopular: false
     }
   },
   methods: {
-    tabClick() {
-      this.isActivePopular = !this.isActivePopular
-      this.isActiveRecent = !this.isActiveRecent
-    }
+    tabClickRecent() {
+      this.isActivePopular = false
+      this.isActiveRecent = true
+      this.tryChangeTab('recent')
+      console.log(this.currentTab)
+    },
+    tabClickPopular() {
+      this.isActivePopular = true
+      this.isActiveRecent = false
+      this.tryChangeTab('popular')
+      console.log(this.currentTab)
+    },
+    tryChangeTab(tab) {
+      this.newMessage(tab)
+    },
+    ...mapActions(['newMessage'])
   }
 }
 </script>
 
-<style>
+<style scoped>
   .bullet-sq {
     display: inline-block;
     width: 10px;

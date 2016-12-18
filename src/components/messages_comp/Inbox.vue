@@ -15,7 +15,7 @@
 				</div>
 				<div class="col-md-12 col-sm-12">
 					<form class="form-inline">
-						<div class="form-group">				   
+						<div class="form-group">
 						  <div class="checkbox select-all">
 						    <label>
 						      <input type="checkbox"> <span class="hidden-lg hidden-md">Select All</span>
@@ -44,21 +44,21 @@
 							  	<i class="fa fa-trash"></i>
 							  </button>
 							</div>
-								<div class="btn-group visible-sm-inline-block visible-xs-inline-block pull-right" role="group" aria-label="..."> 
+								<div class="btn-group visible-sm-inline-block visible-xs-inline-block pull-right" role="group" aria-label="...">
 							  <button type="button" class="btn btn-default">
 							  	<i class="fa fa-angle-left"></i>
 							  </button>
 							  <button type="button" class="btn btn-default">
 							  	<i class="fa fa-angle-right"></i>
 							  </button>
-							</div>					   
+							</div>
 					  </div>
 					  <div class="form-group pull-right hidden-sm hidden-xs">
 					  	<label class="showing">
 					  		Showing 0 - 10 from 1200
 					  	</label>
-					   	<div class="btn-group" role="group" aria-label="..."> 
-							  
+					   	<div class="btn-group" role="group" aria-label="...">
+
 							  <button type="button" class="btn btn-default">
 							  	<i class="fa fa-angle-left"></i>
 							  </button>
@@ -76,9 +76,9 @@
 						<tbody>
 
 							<tr class="unread" v-for="data in messages" @click.stop.prevent="readMessage(data.id)"><!--Uread Message-->
-								<td>	
+								<td>
 									<label>
-							      <input type="checkbox"> 
+							      <input type="checkbox">
 							    </label>
 								</td>
 								<td>
@@ -90,7 +90,7 @@
 								<td>
 									{{convertDate(data.created_at)}}
 								</td>
-							</tr>							
+							</tr>
 						</tbody>
 					</table>
 
@@ -137,7 +137,7 @@ var dateFormat = require('dateformat');
 				this.$router.push({ name: 'read', params: { id: id }});
 			},
 			getAllMessages(limit_count){
-				self = this;				
+				self = this;
 				self.loadSpin="fa fa-spinner fa-pulse fa-fw";
 				var page_no = self.page;
 				var auth_token = localStorage.getItem('token')
@@ -152,7 +152,7 @@ var dateFormat = require('dateformat');
       				if(res.status==200){
       					console.log(res)
       					self.messages = res.body.data.messages
-      					self.message = "Fetch="+res.body.status        					
+      					self.message = "Fetch="+res.body.status
       					self.loadSpin=''
       				}else{
       					console.log(res)
@@ -163,7 +163,7 @@ var dateFormat = require('dateformat');
 				}
 			},
 			created: function(){
-				this.getAllMessages(this.selected) 
+				this.getAllMessages(this.selected)
 		}
 
 	}

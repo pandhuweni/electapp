@@ -40,6 +40,9 @@ export default {
     }
   },
   methods: {
+    test() {
+      alert(this.follower)
+    },
     loadData() {
       self = this
       var token = localStorage.getItem('token')
@@ -57,18 +60,20 @@ export default {
             console.log(err)
           }
           if (res.status==200) {
-            self.follower = res.follower_count
-            self.following = res.following_count
-            self.total_vote = res.total_vote
-            self.total_vote = res.today_participant_count
+            self.follower = res.body.follower_count
+            self.following = res.body.following_count
+            self.total_vote = res.body.total_vote
+            self.today_participant = res.body.today_participant_count
+            console.log(res)
+
           }else {
             console.log(res)
           }
         });
     }
   },
-  created: function(){
-    this.loadData
+  mounted: function(){
+    this.loadData()
   }
 }
 </script>

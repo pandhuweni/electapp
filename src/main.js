@@ -10,10 +10,12 @@ import Sent from './components/messages_comp/Sent'
 import Trash from './components/messages_comp/Trash'
 import Create from './components/messages_comp/Create'
 import Read from './components/messages_comp/Read'
+import store from './vuex/store'
 var VueRouter = require('vue-router')
+var Vuex = require('vuex')
 
 Vue.use(VueRouter)
-
+Vue.use(Vuex)
 
 const routes = [
   { path: '/', component: App, name: 'home',
@@ -46,5 +48,6 @@ const router = new VueRouter({
 })
 
 const app = new Vue({
-  router
+  router,
+  store: store
 }).$mount('#app')
