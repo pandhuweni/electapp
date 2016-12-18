@@ -75,7 +75,7 @@ x<template>
 	        	</router-link>
 	        </li>
 	        <li>
-	        	<router-link :to="{ name: 'votelist'}">
+	        	<router-link :to="{ name: 'votelist_index'}">
 	        		<i class="fa fa-list-ul"></i>
 								<transition name="fade">
 									<span>Vote List</span>
