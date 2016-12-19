@@ -5,26 +5,88 @@
         <div class="panel-body">
           <div class="form-group">
             <label>Title</label>
-            <input type="email" class="form-control" placeholder="Title"/>
+            <input type="email" v-model="title" class="form-control" placeholder="Title" required/>
           </div>
           <div class="form-group">
             <label>Description</label>
-            <input type="text" class="form-control"  placeholder="Description">
+            <input type="text" v-model="description" class="form-control"  placeholder="Description" required>
           </div>
-          <Options></Options>
-
-
+          <div>
+            <div>
+              <label>Options</label>
+            </div>
+            <div>
+              <a class="btn btn-primary" @click="addOption()"> Add Options</a>
+            </div>
+            <br/>
+            <div class="form-group" v-for="option in options">
+              <input type="text"  v-model="option.data" class="form-control"  placeholder="Description">
+            </div>
+          </div>
+          <div>{{options}}</div>
+          <div class="form-group">
+            <input type="submit" @click.stop.prevent="sendRequest()" class="btn btn-primary" value="Submit"  placeholder="Description">
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import Options from './Options'
+var request = require('superagent')
 export default{
   name: 'CreateVote',
   components: {
-    Options
+
+  },
+  data() {
+    return {
+      option_counter: 1,
+      options: [],
+    }
+  },
+  methods: {
+    addOption(){
+      var payload = {data: ''}
+      this.options.push(payload)
+      this.option_counter++
+      console.log(this.options)
+    },
+    sendRequest(){
+          self = this;
+          var token = localStorage.getItem('token')
+          var options_value= []
+          this.options.map(function(e){
+            options_value.push(e.data)
+          })
+          var req_body = {
+            'title': self.title,
+            'description': self.description,
+            'options[]': 'ss',
+            'options[]': 'dd'
+          }
+          console.log(req_body)
+          request.post("http://electa-engine.herokuapp.com/users/vote")
+            .set({'Content-Type': 'application/json'})
+            .set({'Authorization': 'Token token='+token})
+            .set({'crossDomain': true})
+            .send(req_body)
+            .end(function(err,res){
+              if (err) {
+              self.isLoginProgress = '';
+              console.log("Error Login");
+              console.log(err);
+              }
+              if (res.status==200) {
+                console.log(res)
+                self.$router.push({ name: 'votelist_index'})
+              }else {
+                console.log(res)
+                self.isLoginProgress = '';
+                console.log("Password Salah");
+              }
+          });
+        }
   }
 }
 </script>
