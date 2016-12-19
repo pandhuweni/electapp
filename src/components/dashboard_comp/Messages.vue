@@ -22,11 +22,11 @@
 </template>
 <script>
 export default {
-  name: 'messages', 
+  name: 'messages',
   props: ['title', 'items'],
   data() {
 		return {
-			
+
 		}
 	}
 }
