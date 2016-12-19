@@ -30,7 +30,7 @@
 							</select>
 					  </div>
 					  <div class="form-group">
-						   <button class="btn btn-default" @click.stop.prevent="getAllMessages(selected)">
+						   <button class="btn btn-default" @click.stop.prevent="getAllMessages(selected, page)">
 						   	<i class="fa fa-refresh"></i>
 						   </button>
 						   <div class="btn-group" role="group" aria-label="...">
@@ -189,7 +189,33 @@ var dateFormat = require('dateformat');
       				}
       			}
       		});
-				}
+				},
+			deleteMessage(checkedMessage){
+				self = this;
+				self.loadSpin="fa fa-spinner fa-pulse fa-fw";
+				var auth_token = localStorage.getItem('token')
+				var i;
+				for(i=0;i<checkedMessage.length;i++){
+						request.delete("http://electa-engine.herokuapp.com/users/messages/"+checkedMessage[i])
+	      		.set({'Content-Type': 'application/json	'})
+	      		.set({'Authorization': 'Token token='+auth_token})
+	      		.set({'crossDomain': true})
+	      		.end(function(err,res){
+	      			if(err){
+	      				console.log(err)
+	      			}else{
+	      				if(res.status==204){
+	      					console.log(res)
+	      					self.loadSpin=''
+	      					self.getAllMessages(self.selected, self.page)
+	      				}else{
+	      					console.log(res)
+	      					self.loadSpin ='fa fa-window-close'
+	      				}	
+	      			}
+	      		});
+					}
+				}				
 			},
 			created: function(){
 				var selCount = localStorage.getItem('selectedCount')
