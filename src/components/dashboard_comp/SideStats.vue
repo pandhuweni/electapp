@@ -50,10 +50,9 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
 export default {
   name: 'SideStats',
-  props: ['data'],
+  props: ['stats'],
   computed: {
     currentTab: function() { return this.$store.state.sideStatsTab }
   },
@@ -74,7 +73,7 @@ export default {
   methods: {
     syncData() {
       self = this
-      if (this.data.empty_data) {
+      if (this.stats.empty_data) {
         this.participant= 0,
         this.today= 0,
         this.top_region= "0",
@@ -84,12 +83,12 @@ export default {
         this.max_value= "0",
         this.min_value= "0"
       } else {
-        this.participant= 0,
-        this.today= 0,
-        this.top_region= "0",
-        this.top_education= "0",
-        this.top_profesion= "0",
-        this.modus_choice= "0",
+        this.participant= this.stats.participant_count,
+        this.today= this.stats.today_participant_count,
+        this.top_region= "",
+        this.top_education= this.stats.top_education,
+        this.top_profesion= this.stats.top_profesion,
+        this.modus_choice= this.stats.modus_choice,
         this.max_value= "0",
         this.min_value= "0"
       }
@@ -115,8 +114,8 @@ export default {
       this.syncData()
     }
   },
-  created: function() {
-    this.syncData()
+  mounted: function() {
+    //this.syncData()
     console.log(this.currentTab)
   }
 }

@@ -46,15 +46,11 @@ export default {
     loadData() {
       self = this
       var token = localStorage.getItem('token')
-      var req_body = {
-        'email': self.email,
-        'password': self.password
-      }
+
       request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_top")
         .set({"Authorization": "Token token="+token})
         .set({'Content-Type': 'application/json'})
         .set({'crossDomain': true})
-        .send(req_body)
         .end(function(err,res){
           if (err) {
             console.log(err)
@@ -72,7 +68,7 @@ export default {
         });
     }
   },
-  created: function(){
+  mounted: function(){
     this.loadData()
   }
 }
