@@ -59,15 +59,14 @@ export default{
           this.options.map(function(e){
             options_value.push(e.data)
           })
-          var req_body = {
-            'title': self.title,
-            'description': self.description,
-            'options[]': 'ss',
-            'options[]': 'dd'
-          }
-          console.log(req_body)
+          var req_body = new window.FormData()
+          req_body.append('title', self.title)
+          req_body.append('description', self.description)
+          self.options.map(function(e){
+            req_body.append('options[]', e.data)
+          })
+          console.log(req_body.getAll('options[]'))
           request.post("http://electa-engine.herokuapp.com/users/vote")
-            .set({'Content-Type': 'application/json'})
             .set({'Authorization': 'Token token='+token})
             .set({'crossDomain': true})
             .send(req_body)
@@ -77,7 +76,7 @@ export default{
               console.log("Error Login");
               console.log(err);
               }
-              if (res.status==200) {
+              if (res.status==201) {
                 console.log(res)
                 self.$router.push({ name: 'votelist_index'})
               }else {
