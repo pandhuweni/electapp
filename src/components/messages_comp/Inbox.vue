@@ -30,17 +30,18 @@
 							</select>
 					  </div>
 					  <div class="form-group">
-						   <button class="btn btn-default">
+						   <button class="btn btn-default" @click.stop.prevent="getAllMessages(selected)">
 						   	<i class="fa fa-refresh"></i>
 						   </button>
 						   <div class="btn-group" role="group" aria-label="...">
 							  <button type="button" class="btn btn-default">
 							  	<i class="fa fa-archive"></i>
 							  </button>
-							  <button type="button" class="btn btn-default">
-							  	<i class="fa fa-info-circle"></i>
-							  </button>
-							  <button type="button" class="btn btn-default">
+							  <button 
+							  	type="button" 
+							  	class="btn btn-default" 
+							  	@click.stop.prevent="deleteMessage(checkedMessage)"
+							  >
 							  	<i class="fa fa-trash"></i>
 							  </button>
 							</div>
@@ -55,14 +56,14 @@
 					  </div>
 					  <div class="form-group pull-right hidden-sm hidden-xs">
 					  	<label class="showing">
-					  		Showing 0 - 10 from 1200
+					  		Showing {{start}} to {{ end }} from {{ total }}
 					  	</label>
 					   	<div class="btn-group" role="group" aria-label="...">
 
-							  <button type="button" class="btn btn-default">
+							  <button type="button" class="btn btn-default" @click.stop.prevent="decrementPage">
 							  	<i class="fa fa-angle-left"></i>
 							  </button>
-							  <button type="button" class="btn btn-default">
+							  <button type="button" class="btn btn-default" @click.stop.prevent="incrementPage">
 							  	<i class="fa fa-angle-right"></i>
 							  </button>
 							</div>
@@ -74,20 +75,22 @@
 					</center>
 					<table class="table table-hover">
 						<tbody>
-
-							<tr class="unread" v-for="data in messages" @click.stop.prevent="readMessage(data.id)"><!--Uread Message-->
+							<tr class="unread" v-for="data in messages"><!--Uread Message-->
 								<td>
 									<label>
-							      <input type="checkbox">
+							      <input type="checkbox" 
+							      	v-bind:value="data.id"
+							      	v-model="checkedMessage"
+							      >
 							    </label>
 								</td>
-								<td>
-									{{data.from}}
+								<td  @click.stop.prevent="readMessage(data.id)">
+									{{data.from_name}}
 								</td>
-								<td>
+								<td  @click.stop.prevent="readMessage(data.id)">
 									{{data.subject}}
 								</td>
-								<td>
+								<td  @click.stop.prevent="readMessage(data.id)">
 									{{convertDate(data.created_at)}}
 								</td>
 							</tr>
@@ -98,6 +101,8 @@
 			</div>
 		</div>
 		{{selected}}
+		{{checkedMessage}}
+		{{page}}
 	</div>
 </template>
 
@@ -109,22 +114,30 @@ var dateFormat = require('dateformat');
 		data() {
 			return{
 				messages: [],
-				page: 1,
+				page: '',
 				getStatus:'',
 				message: '',
 				loadSpin: '',
-				selected: '20',
+				count: '',
+				start: '',
+				end: '',
+				total: '',
+				selected: '',
 		    options: [
-		      { text: '10', value: '10' },
 		      { text: '20', value: '20' },
-		      { text: '50', value: '50' }
-		    ]
+		      { text: '50', value: '50' },
+		      { text: '100', value: '100' }
+		    ],
+		    checkedMessage: []
 			}
 		},
 		watch: {
 			selected: function(){
-				this.getAllMessages(this.selected)
-				console.log(this.selected)
+				this.getAllMessages(this.selected, this.page)
+				localStorage.setItem('selectedCount',this.selected)
+			},
+			page: function(){
+				this.getAllMessages(this.selected, this.page)
 			}
 		},
 		methods:{
@@ -133,13 +146,25 @@ var dateFormat = require('dateformat');
 				return dateFull;
 			},
 			readMessage(id){
-				alert('Inia alet');
 				this.$router.push({ name: 'read', params: { id: id }});
 			},
-			getAllMessages(limit_count){
+			decrementPage(){
+				if(this.page -1 <= 0){
+					this.page = this.page;
+				}else{
+					this.page = this.page - 1
+				}
+			},
+			incrementPage(){
+				if(this.total < parseInt(this.count) * this.page){
+					this.page = this.page;
+				}else{
+				  this.page = this.page + 1;
+				}
+			},
+			getAllMessages(limit_count, page_no){
 				self = this;
 				self.loadSpin="fa fa-spinner fa-pulse fa-fw";
-				var page_no = self.page;
 				var auth_token = localStorage.getItem('token')
 				request.get("http://electa-engine.herokuapp.com/users/messages?page="+page_no+"&limit="+limit_count)
       		.set({'Content-Type': 'application/json	'})
@@ -152,6 +177,10 @@ var dateFormat = require('dateformat');
       				if(res.status==200){
       					console.log(res)
       					self.messages = res.body.data.messages
+      					self.total = res.body.data.total
+      					self.count = res.body.data.count
+      					self.start = parseInt(self.selected)*(parseInt(page_no)-1)+1
+      					self.end = parseInt(self.count)+self.start-1
       					self.message = "Fetch="+res.body.status
       					self.loadSpin=''
       				}else{
@@ -163,7 +192,14 @@ var dateFormat = require('dateformat');
 				}
 			},
 			created: function(){
-				this.getAllMessages(this.selected)
+				var selCount = localStorage.getItem('selectedCount')
+				this.page = 1
+				if(selCount == null){
+					this.selected = 20	
+				}else{
+					this.selected = selCount
+				}
+				this.getAllMessages(this.selected, this.page)
 		}
 
 	}

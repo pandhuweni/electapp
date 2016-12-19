@@ -37,7 +37,7 @@ const routes = [
 	  			{ path: 'sent', name: 'sent', component: Sent },
 	  			{ path: 'trash', name: 'trash', component: Trash },
 	  			{ path: 'create', name: 'create', component: Create },
-	  			{ path: 'read', name: 'read/:id', component: Read },
+	  			{ path: 'read/:id', name: 'read', component: Read },
 	  	 		{ path: '*', redirect: 'inbox' }
 	  		]
 	  	 },
