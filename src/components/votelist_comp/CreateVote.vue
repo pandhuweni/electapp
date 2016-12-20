@@ -15,17 +15,17 @@
             <div>
               <label>Options</label>
             </div>
-            <div>
-              <a class="btn btn-primary" @click="addOption()"> Add Options</a>
-            </div>
             <br/>
             <div class="form-group" v-for="option in options">
-              <input type="text"  v-model="option.data" class="form-control"  placeholder="Description">
+              <input type="text"  v-model="option.data" class="form-control"  placeholder="Description" >
             </div>
+          </div>          
+          <div>
+            <a class="btn btn-primary" @click="addOption()"> Add Options</a>
           </div>
           <div>{{options}}</div>
           <div class="form-group">
-            <input type="submit" @click.stop.prevent="sendRequest()" class="btn btn-primary" value="Submit"  placeholder="Description">
+            <input type="submit" @click.stop.prevent="createVote()" class="btn btn-primary" value="Submit"  placeholder="Description">
           </div>
         </div>
       </div>
@@ -43,6 +43,7 @@ export default{
     return {
       option_counter: 1,
       options: [],
+      reqData: ''
     }
   },
   methods: {
@@ -52,25 +53,27 @@ export default{
       this.option_counter++
       console.log(this.options)
     },
-    sendRequest(){
+    createVote(){
           self = this;
-          var token = localStorage.getItem('token')
-          var options_value= []
+          var token = localStorage.getItem('token');
+          var options_value= [];   
+          var i;       
           this.options.map(function(e){
             options_value.push(e.data)
           })
-          var req_body = {
-            'title': self.title,
-            'description': self.description,
-            'options[]': 'ss',
-            'options[]': 'dd'
+          const optionData = new window.FormData()
+          for(i=0;i<this.options.length;i++){
+            optionData.append('options[]',this.options[i].data)
           }
-          console.log(req_body)
+          // var req_body = { 
+          // }
+          console.log(optionData)
+          // console.log(req_body)
           request.post("http://electa-engine.herokuapp.com/users/vote")
-            .set({'Content-Type': 'application/json'})
+            // .set({'Content-Type': 'application/json'})
             .set({'Authorization': 'Token token='+token})
             .set({'crossDomain': true})
-            .send(req_body)
+            .send({title: self.title,description: self.description,optionData})
             .end(function(err,res){
               if (err) {
               self.isLoginProgress = '';
@@ -83,7 +86,7 @@ export default{
               }else {
                 console.log(res)
                 self.isLoginProgress = '';
-                console.log("Password Salah");
+                console.log("Gagal Buat Vote");
               }
           });
         }

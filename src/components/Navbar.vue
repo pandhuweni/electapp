@@ -82,7 +82,7 @@ x<template>
 								</transition>
 	        	</router-link>
 	        </li>
-	        <li>
+	        <li class="hidden">
 	        	<a href="#">
 	        		<i class="fa fa-line-chart"></i>
 					<transition name="fade">
@@ -90,7 +90,7 @@ x<template>
 					</transition>
 	        	</a>
 	        </li>
-	        <li>
+	        <li class="hidden">
 	        	<a href="#">
 	        		<i class="fa fa-magic"></i>
 					<transition name="fade">

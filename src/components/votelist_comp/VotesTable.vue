@@ -113,6 +113,7 @@
     methods:{
       getAllVotes(){
         self = this;
+        debugger
         var page_no = self.page;
         var limit_count = self.limit;
         var token = localStorage.getItem('token')
