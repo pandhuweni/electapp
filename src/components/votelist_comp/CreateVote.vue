@@ -54,20 +54,23 @@ export default{
     },
     sendRequest(){
           self = this;
-          var token = localStorage.getItem('token')
+          var token = 'ReVeTEPSA2xYAGQgCcVIiHNKUyKrI43Xd6oqjDJb'
           var options_value= []
+
           this.options.map(function(e){
             options_value.push(e.data)
           })
-          var req_body = {
-            'title': self.title,
-            'description': self.description,
-            'options[]': 'ss',
-            'options[]': 'dd'
-          }
-          console.log(req_body)
-          request.post("http://electa-engine.herokuapp.com/users/vote")
-            .set({'Content-Type': 'application/json'})
+
+          var req_body = new window.FormData()
+          req_body.append('title', self.title)
+          req_body.append('description', self.description)
+          self.options.map(function(e){
+            req_body.append('options[]', e.data)
+          })
+
+          console.log(req_body.getAll('options[]'))
+          request.post("http://localhost:3000/users/vote")
+            .set({'Content-Type': 'application/x-www-form-urlencoded'})
             .set({'Authorization': 'Token token='+token})
             .set({'crossDomain': true})
             .send(req_body)
@@ -82,8 +85,6 @@ export default{
                 self.$router.push({ name: 'votelist_index'})
               }else {
                 console.log(res)
-                self.isLoginProgress = '';
-                console.log("Password Salah");
               }
           });
         }
