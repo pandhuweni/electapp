@@ -8,52 +8,51 @@
       <li>
         <span class="bullet-sq"></span>
         Participant
-        <span class="pull-right secondary-text">{{participant}}</span>
+        <span class="pull-right secondary-text">{{stats[0].participant}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Today
-        <span class="pull-right secondary-text">{{today}}</span>
+        <span class="pull-right secondary-text">{{stats[0].today}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Top Region
-        <span class="pull-right secondary-text">{{top_region}}</span>
+        <span class="pull-right secondary-text">{{stats[0].top_region}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Top Education
-        <span class="pull-right secondary-text">{{top_education}}</span>
+        <span class="pull-right secondary-text">{{stats[0].top_education}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Top Profesion
-        <span class="pull-right secondary-text">{{top_profesion}}</span>
+        <span class="pull-right secondary-text">{{stats[0].top_profesion}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Modus Choice
-        <span class="pull-right secondary-text">{{modus_choice}}</span>
+        <span class="pull-right secondary-text">{{stats[0].modus_choice}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Max Value
-        <span class="pull-right secondary-text">{{max_value}}</span>
+        <span class="pull-right secondary-text">{{stats[0].max_value}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Min Value
-        <span class="pull-right secondary-text">{{min_value}}</span>
+        <span class="pull-right secondary-text">{{stats[0].min_value}}</span>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
 export default {
   name: 'SideStats',
-  props: ['data'],
+  props: ['stats'],
   computed: {
     currentTab: function() { return this.$store.state.sideStatsTab }
   },
@@ -74,7 +73,7 @@ export default {
   methods: {
     syncData() {
       self = this
-      if (this.data.empty_data) {
+      if (this.stats.empty_data) {
         this.participant= 0,
         this.today= 0,
         this.top_region= "0",
@@ -84,12 +83,12 @@ export default {
         this.max_value= "0",
         this.min_value= "0"
       } else {
-        this.participant= 0,
-        this.today= 0,
-        this.top_region= "0",
-        this.top_education= "0",
-        this.top_profesion= "0",
-        this.modus_choice= "0",
+        this.participant= this.stats.participant_count,
+        this.today= this.stats.today_participant_count,
+        this.top_region= "",
+        this.top_education= this.stats.top_education,
+        this.top_profesion= this.stats.top_profesion,
+        this.modus_choice= this.stats.modus_choice,
         this.max_value= "0",
         this.min_value= "0"
       }
@@ -109,14 +108,14 @@ export default {
     tryChangeTab(tab) {
       this.$store.dispatch('changeTab', tab)
     }
-  },
+  },/*
   watch: {
     currentTab: function() {
       this.syncData()
     }
-  },
-  created: function() {
-    this.syncData()
+  },*/
+  mounted: function() {
+    //this.syncData()
     console.log(this.currentTab)
   }
 }

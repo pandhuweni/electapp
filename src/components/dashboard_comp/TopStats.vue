@@ -46,15 +46,11 @@ export default {
     loadData() {
       self = this
       var token = localStorage.getItem('token')
-      var req_body = {
-        'email': self.email,
-        'password': self.password
-      }
+
       request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_top")
         .set({"Authorization": "Token token="+token})
         .set({'Content-Type': 'application/json'})
         .set({'crossDomain': true})
-        .send(req_body)
         .end(function(err,res){
           if (err) {
             console.log(err)
@@ -64,7 +60,7 @@ export default {
             self.following = res.body.following_count
             self.total_vote = res.body.total_vote
             self.today_participant = res.body.today_participant_count
-            console.log(res)
+
 
           }else {
             console.log(res)
