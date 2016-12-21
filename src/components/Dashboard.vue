@@ -14,7 +14,7 @@
       <div class="col-md-3 col-sm12">
         <div class="panel panel-default">
           <div class="panel-body ">
-            <sidestats :stats="sideStatData"></sidestats>
+            <sidestats :stats="side_data"></sidestats>
           </div>
         </div>
       </div>
@@ -66,22 +66,15 @@ export default {
         {data: "this is some kind of weird task"},
         {data: "this is some kind of weird task"},
       ],
-      sideStatData:[{
-              participant: 0,
-              today: 0,
-              top_region: '',
-              top_education: '',
-              top_profesion: '',
-              modus_choice: '',
-              max_value: '',
-              min_value: '',
-            }],
+      side_data: [
+        {participant:0, today: 0, top_region: "", top_education: "", top_profesion: "", modus_choice: "", max_value:"", min_value:""}
+      ],
       chartData: {}
     }
   },
   methods: {
     loadChartStats(based_on) {
-      self = this
+      var self = this
       var token = localStorage.getItem('token')
       request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_chart?based_on="+based_on)
         .set({"Authorization": "Token token="+token})
@@ -95,7 +88,9 @@ export default {
             if(res.body.data.empty_data) {
               console.log(res)
             } else {
-              //self.sideStatData = res.body.data.stat
+              console.log(res)
+              self.side_data[0].participant = res.body.data.stat.participant_count
+              self.side_data[0].modus_choice = res.body.data.stat.modus_choice
               self.chartData = res.body.data.chart.filtered
             }
           }else {
@@ -109,9 +104,8 @@ export default {
       this.loadChartStats(this.currentTab)
     }
   },
-  created: function(){
-
-    this.loadChartStats(this.currentTab)
+  created(){
+    this.loadChartStats('current')
   }
 }
 </script>

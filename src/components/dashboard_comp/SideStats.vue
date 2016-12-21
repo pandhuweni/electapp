@@ -8,42 +8,42 @@
       <li>
         <span class="bullet-sq"></span>
         Participant
-        <span class="pull-right secondary-text">{{participant}}</span>
+        <span class="pull-right secondary-text">{{stats[0].participant}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Today
-        <span class="pull-right secondary-text">{{today}}</span>
+        <span class="pull-right secondary-text">{{stats[0].today}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Top Region
-        <span class="pull-right secondary-text">{{top_region}}</span>
+        <span class="pull-right secondary-text">{{stats[0].top_region}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Top Education
-        <span class="pull-right secondary-text">{{top_education}}</span>
+        <span class="pull-right secondary-text">{{stats[0].top_education}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Top Profesion
-        <span class="pull-right secondary-text">{{top_profesion}}</span>
+        <span class="pull-right secondary-text">{{stats[0].top_profesion}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Modus Choice
-        <span class="pull-right secondary-text">{{modus_choice}}</span>
+        <span class="pull-right secondary-text">{{stats[0].modus_choice}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Max Value
-        <span class="pull-right secondary-text">{{max_value}}</span>
+        <span class="pull-right secondary-text">{{stats[0].max_value}}</span>
       </li>
       <li>
         <span class="bullet-sq"></span>
         Min Value
-        <span class="pull-right secondary-text">{{min_value}}</span>
+        <span class="pull-right secondary-text">{{stats[0].min_value}}</span>
       </li>
     </ul>
   </div>
@@ -108,12 +108,12 @@ export default {
     tryChangeTab(tab) {
       this.$store.dispatch('changeTab', tab)
     }
-  },
+  },/*
   watch: {
     currentTab: function() {
       this.syncData()
     }
-  },
+  },*/
   mounted: function() {
     //this.syncData()
     console.log(this.currentTab)
