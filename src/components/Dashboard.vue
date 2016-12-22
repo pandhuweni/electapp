@@ -14,7 +14,7 @@
       <div class="col-md-3 col-sm12">
         <div class="panel panel-default">
           <div class="panel-body ">
-            <sidestats :data="sideStatData"></sidestats>
+            <sidestats :stats="sideStatData"></sidestats>
           </div>
         </div>
       </div>
@@ -66,7 +66,16 @@ export default {
         {data: "this is some kind of weird task"},
         {data: "this is some kind of weird task"},
       ],
-      sideStatData:{},
+      sideStatData:[{
+              participant: 0,
+              today: 0,
+              top_region: '',
+              top_education: '',
+              top_profesion: '',
+              modus_choice: '',
+              max_value: '',
+              min_value: '',
+            }],
       chartData: {}
     }
   },
@@ -86,9 +95,8 @@ export default {
             if(res.body.data.empty_data) {
               console.log(res)
             } else {
-              self.sideStatData = res.body.data.stat
-              self.chartData = res.body.data.chart
-              console.log(res)
+              //self.sideStatData = res.body.data.stat
+              self.chartData = res.body.data.chart.filtered
             }
           }else {
             console.log(res)
@@ -100,6 +108,10 @@ export default {
     currentTab: function(){
       this.loadChartStats(this.currentTab)
     }
+  },
+  created: function(){
+
+    this.loadChartStats(this.currentTab)
   }
 }
 </script>
