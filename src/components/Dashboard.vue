@@ -42,14 +42,11 @@ export default {
 	name: 'dashboard',
 	components: {
     topstats,
-    chart,
     sidestats,
     messages,
+    chart,
     history
 	},
-  computed: {
-    currentTab: function() { return this.$store.state.sideStatsTab }
-  },
   data(){
     return {
       messages: [
@@ -69,10 +66,16 @@ export default {
       side_data: [
         {participant:0, today: 0, top_region: "", top_education: "", top_profesion: "", modus_choice: "", max_value:"", min_value:""}
       ],
-      chartData: {}
     }
   },
+  computed: {
+    currentTab: function() { return this.$store.state.sideStatsTab },
+    chart_data: function() { return this.$store.state.chartData }
+  },
   methods: {
+    trySyncChart(data) {
+      this.$store.dispatch('syncChartData', data)
+    },
     loadChartStats(based_on) {
       var self = this
       var token = localStorage.getItem('token')
@@ -90,8 +93,23 @@ export default {
             } else {
               console.log(res)
               self.side_data[0].participant = res.body.data.stat.participant_count
+              self.side_data[0].today = res.body.data.stat.today_participant_count
+              self.side_data[0].top_region = res.body.data.stat.top_region
+              self.side_data[0].top_education = res.body.data.stat.top_education
               self.side_data[0].modus_choice = res.body.data.stat.modus_choice
-              self.chartData = res.body.data.chart.filtered
+              if (res.body.data.stat.max_value == "") {
+                self.side_data[0].max_value = ""
+              } else {
+                self.side_data[0].max_value = res.body.data.stat.max_value[1] + " (" + res.body.data.stat.max_value[0] + ")"
+              }
+              if (res.body.data.stat.min_value == ""){
+                self.side_data[0].min_value = ""
+              } else {
+                self.side_data[0].min_value = res.body.data.stat.min_value[1] + " (" + res.body.data.stat.min_value[0] + ")"
+              }              
+              if (Object.keys(res.body.data.chart).length > 0){
+                self.trySyncChart(res.body.data.chart)
+              }
             }
           }else {
             console.log(res)
@@ -105,7 +123,7 @@ export default {
     }
   },
   created(){
-    this.loadChartStats('current')
+    this.loadChartStats('popular')
   }
 }
 </script>

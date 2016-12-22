@@ -71,28 +71,6 @@ export default {
     }
   },
   methods: {
-    syncData() {
-      self = this
-      if (this.stats.empty_data) {
-        this.participant= 0,
-        this.today= 0,
-        this.top_region= "0",
-        this.top_education= "0",
-        this.top_profesion= "0",
-        this.modus_choice= "0",
-        this.max_value= "0",
-        this.min_value= "0"
-      } else {
-        this.participant= this.stats.participant_count,
-        this.today= this.stats.today_participant_count,
-        this.top_region= "",
-        this.top_education= this.stats.top_education,
-        this.top_profesion= this.stats.top_profesion,
-        this.modus_choice= this.stats.modus_choice,
-        this.max_value= "0",
-        this.min_value= "0"
-      }
-    },
     tabClickRecent() {
       this.isActivePopular = false
       this.isActiveRecent = true

@@ -5,15 +5,15 @@ export default new Vuex.Store({
 
   state: {
     sideStatsTab: 'recent',
-    sideStatsData: {},
+    chartData: {},
   },
 
   actions: {
     changeTab ({commit}, tab) {
       commit('CHANGE_TAB', tab)
     },
-    syncSideStats ({commit}, data) {
-      commit('CHANGE_TAB', data)
+    syncChartData ({commit}, data) {
+      commit('SYNC_CHART', data)
     }
   },
 
@@ -21,8 +21,8 @@ export default new Vuex.Store({
     CHANGE_TAB (state, tab) {
       state.sideStatsTab = tab
     },
-    SYNC_SIDE_STATs (state, data) {
-      state.sideStatsData = data
+    SYNC_CHART (state, data) {
+      state.chartData = data
     },
 
   },
