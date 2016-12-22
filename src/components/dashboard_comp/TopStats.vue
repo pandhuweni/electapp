@@ -60,7 +60,7 @@ export default {
             self.following = res.body.following_count
             self.total_vote = res.body.total_vote
             self.today_participant = res.body.today_participant_count
-            console.log(res)
+
 
           }else {
             console.log(res)
@@ -68,7 +68,7 @@ export default {
         });
     }
   },
-  mounted: function(){
+  created: function(){
     this.loadData()
   }
 }
