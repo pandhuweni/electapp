@@ -24,6 +24,9 @@ export default{
 	},
 	methods:{
 		syncData(){
+			this.data.labels = []
+			this.data.datasets = []
+			this.series = {}
 			var ctx = document.getElementById("myChart")
 			self = this
 			var tmp_series = []
