@@ -18,7 +18,7 @@
 						<div class="form-group">
 						  <div class="checkbox select-all">
 						    <label>
-						      <input type="checkbox"> <span class="hidden-lg hidden-md">Select All</span>
+						      <input type="checkbox" v-model="selectAll"> <span class="hidden-lg hidden-md">Select All</span>
 						    </label>
 						  </div>
 					  </div>
@@ -81,7 +81,7 @@
 							      <input type="checkbox" 
 							      	v-bind:value="data.id"
 							      	v-model="checkedMessage"
-							      >
+							      >	
 							    </label>
 								</td>
 								<td  @click.stop.prevent="readMessage(data.id)">
@@ -131,6 +131,24 @@ var dateFormat = require('dateformat');
 		    checkedMessage: []
 			}
 		},
+		computed: {
+        selectAll: {
+            get: function () {
+                return this.messages ? this.checkedMessage.length == this.messages.length : false;
+            },
+            set: function (value) {
+                var selectedA = [];
+
+                if (value) {
+                    this.messages.forEach(function (data) {
+                        selectedA.push(data.id);
+                    });
+                }
+
+                this.checkedMessage = selectedA;
+            }
+        }
+    },
 		watch: {
 			selected: function(){
 				this.getAllMessages(this.selected, this.page)
@@ -156,7 +174,7 @@ var dateFormat = require('dateformat');
 				}
 			},
 			incrementPage(){
-				if(this.total < parseInt(this.count) * this.page){
+				if(this.total <= parseInt(this.end)){
 					this.page = this.page;
 				}else{
 				  this.page = this.page + 1;
@@ -215,7 +233,7 @@ var dateFormat = require('dateformat');
 	      			}
 	      		});
 					}
-				}				
+				}	
 			},
 			created: function(){
 				var selCount = localStorage.getItem('selectedCount')

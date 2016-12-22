@@ -81,7 +81,6 @@
       }
 		},
 		created: function(){
-
 			this.isButtonSending="Reply";
 			this.isSendProgress="fa-reply"
 			this.readMessage();
