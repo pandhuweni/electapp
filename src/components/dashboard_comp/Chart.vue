@@ -1,5 +1,8 @@
 <template>
 	<div  style="padding-top: 15px">
+		<div class="col-md-3">
+			<label><h4>{{title}}</h4></label>
+		</div>
 		<div class="form-group col-md-3 pull-right">
 	    <select class="form-control" v-model='selected1'>
 				<option v-for="option in options1" v-bind:value="option.value">
@@ -23,9 +26,10 @@
 <script>
 export default{ 
 	name: 'chart',
-	props: ['chartData'],
+	props: ['chartData', 'titleData'],
 	data() {
 		return {
+			title: '',
 			selected1: 'date',
 			selected2: 'gender',
 			options1: [
@@ -54,6 +58,9 @@ export default{
 	watch: {
 		chartData: function() {
 			this.syncData()
+		},
+		titleData: function() {
+			this.title = this.titleData
 		},
 		selected1: function() {
 			this.$store.dispatch('syncChartFilterX', this.selected1)
