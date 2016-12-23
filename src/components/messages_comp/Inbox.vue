@@ -207,7 +207,7 @@ var dateFormat = require('dateformat');
       				}
       			}
       		});
-				},
+			},
 			deleteMessage(checkedMessage){
 				self = this;
 				self.loadSpin="fa fa-spinner fa-pulse fa-fw";

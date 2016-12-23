@@ -1,13 +1,13 @@
 <template>
 	<div class="container-fluid">
 	<div class="row">
-    	<topstats></topstats>
+    	<topstats :statsData="topStatsData"></topstats>
 	</div>
     <div class="row">
       <div class="col-md-9 col-sm-12">
         <div class="panel panel-default">
           <div class="panel-body">
-            <chart></chart>
+            <chart :chartData="chartData"></chart>
           </div>
         </div>
       </div>
@@ -42,25 +42,14 @@ export default {
 	name: 'dashboard',
 	components: {
     topstats,
-    chart,
     sidestats,
     messages,
+    chart,
     history
 	},
-  computed: {
-    currentTab: function() { return this.$store.state.sideStatsTab }
-  },
   data(){
     return {
-      messages: [
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: true},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: true},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
-      ],
+      messages: [],
       histories: [
         {data: "this is some kind of weird task"},
         {data: "this is some kind of weird task"},
@@ -69,10 +58,18 @@ export default {
       side_data: [
         {participant:0, today: 0, top_region: "", top_education: "", top_profesion: "", modus_choice: "", max_value:"", min_value:""}
       ],
-      chartData: {}
+      chartData: '',
+      topStatsData: {},
     }
   },
+  computed: {
+    currentTab: function() { return this.$store.state.sideStatsTab },
+    chart_data: function() { return this.$store.state.chartData }
+  },
   methods: {
+    trySyncChart(data) {
+      this.$store.dispatch('syncChartData', data)
+    },
     loadChartStats(based_on) {
       var self = this
       var token = localStorage.getItem('token')
@@ -90,14 +87,75 @@ export default {
             } else {
               console.log(res)
               self.side_data[0].participant = res.body.data.stat.participant_count
+              self.side_data[0].today = res.body.data.stat.today_participant_count
+              self.side_data[0].top_region = res.body.data.stat.top_region
+              self.side_data[0].top_education = res.body.data.stat.top_education
               self.side_data[0].modus_choice = res.body.data.stat.modus_choice
-              self.chartData = res.body.data.chart.filtered
+              if (res.body.data.stat.max_value == "") {
+                self.side_data[0].max_value = ""
+              } else {
+                self.side_data[0].max_value = res.body.data.stat.max_value[1] + " (" + res.body.data.stat.max_value[0] + ")"
+              }
+              if (res.body.data.stat.min_value == ""){
+                self.side_data[0].min_value = ""
+              } else {
+                self.side_data[0].min_value = res.body.data.stat.min_value[1] + " (" + res.body.data.stat.min_value[0] + ")"
+              }              
+              if (Object.keys(res.body.data.chart).length > 0){
+                self.chartData = res.body.data.chart
+              }
             }
           }else {
             console.log(res)
           }
         });
+    },
+    loadTopStats() {
+      self = this
+      var token = localStorage.getItem('token')
+
+      request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_top")
+        .set({"Authorization": "Token token="+token})
+        .set({'Content-Type': 'application/json'})
+        .set({'crossDomain': true})
+        .end(function(err,res){
+          if (err) {
+            console.log(err)
+          }
+          if (res.status==200) {
+            console.log(res)
+            self.topStatsData = {
+              'follower': res.body.follower_count,
+              'following': res.body.following_count,
+              'total_vote': res.body.total_vote,
+              'today_participant': res.body.today_participant_count
+            }
+          }else {
+            console.log(res)
+          }
+        });
+    },
+    loadMessages() {
+      self = this;
+      self.loadSpin="fa fa-spinner fa-pulse fa-fw";
+      var auth_token = localStorage.getItem('token')
+      request.get("http://electa-engine.herokuapp.com/users/messages?page=1&limit=10")
+        .set({'Content-Type': 'application/json '})
+        .set({'Authorization': 'Token token='+auth_token})
+        .set({'crossDomain': true})
+        .end(function(err,res){
+          if(err){
+            console.log(err)
+          }else{
+            if(res.status==200){
+              self.messages = res.body.data.messages
+            }else{
+              console.log(res)
+            }
+          }
+        });
     }
+
   },
   watch: {
     currentTab: function(){
@@ -105,7 +163,10 @@ export default {
     }
   },
   created(){
-    this.loadChartStats('current')
+    this.loadMessages()
+    this.loadTopStats()
+    this.loadChartStats('recent')
+   
   }
 }
 </script>

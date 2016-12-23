@@ -31,6 +31,7 @@
 var request = require('superagent')
 export default {
 	name: 'TopStats',
+  props: ['statsData'],
   data() {
     return {
       follower: 0,
@@ -39,38 +40,24 @@ export default {
       today_participant: 0
     }
   },
+  watch: {
+    statsData: function(){
+      this.syncData()
+    }
+  },
   methods: {
     test() {
       alert(this.follower)
     },
-    loadData() {
-      self = this
-      var token = localStorage.getItem('token')
-
-      request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_top")
-        .set({"Authorization": "Token token="+token})
-        .set({'Content-Type': 'application/json'})
-        .set({'crossDomain': true})
-        .end(function(err,res){
-          if (err) {
-            console.log(err)
-          }
-          if (res.status==200) {
-            self.follower = res.body.follower_count
-            self.following = res.body.following_count
-            self.total_vote = res.body.total_vote
-            self.today_participant = res.body.today_participant_count
-
-
-          }else {
-            console.log(res)
-          }
-        });
-    }
+    syncData(){
+      if (Object.keys(this.statsData).length > 0){
+        this.follower = this.statsData.follower
+        this.following = this.statsData.following
+        this.total_vote = this.statsData.total_vote
+        this.today_participant = this.statsData.today_participant
+      }
+    },
   },
-  created: function(){
-    this.loadData()
-  }
 }
 </script>
 
