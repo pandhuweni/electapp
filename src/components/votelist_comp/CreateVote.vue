@@ -8,6 +8,15 @@
               <label>Title</label>
               <input type="email" v-model="title" class="form-control" placeholder="Title" required/>
             </div>
+
+            <div class="form-group">
+              <label>Category</label>
+              <select class="form-control" v-model="selected">
+                <option v-for="category in categories" v-bind:value="category.value">
+                  {{ category.value }}
+                </option>
+              </select>
+            </div>
             <div class="form-group">
               <label>Description</label>
               <textarea type="text" v-model="description" class="form-control" placeholder="Description" rows="5" required ></textarea> 
@@ -53,6 +62,8 @@ export default{
     return {
       option_counter: 1,
       options: [],
+      selectedCategories: '',
+      categories: []
     }
   },
   methods: {
@@ -63,39 +74,58 @@ export default{
       console.log(this.options)
     },
     sendRequest(){
-          self = this;
-          var token = localStorage.getItem('token')
-          var options_value= []
-          this.options.map(function(e){
-            options_value.push(e.data)
-          })
-          var req_body = new window.FormData()
-          req_body.append('title', self.title)
-          req_body.append('description', self.description)
-          self.options.map(function(e){
-            req_body.append('options[]', e.data)
-          })
-          console.log(req_body.getAll('options[]'))
-          request.post("http://electa-engine.herokuapp.com/users/vote")
-            .set({'Authorization': 'Token token='+token})
-            .set({'crossDomain': true})
-            .send(req_body)
-            .end(function(err,res){
-              if (err) {
-              self.isLoginProgress = '';
-              console.log("Error Login");
-              console.log(err);
-              }
-              if (res.status==201) {
-                console.log(res)
-                self.$router.push({ name: 'votelist_index'})
-              }else {
-                console.log(res)
-                self.isLoginProgress = '';
-                console.log("Password Salah");
-              }
-          });
-        }
+      self = this;
+      var token = localStorage.getItem('token')
+      var options_value= []
+      this.options.map(function(e){
+        options_value.push(e.data)
+      })
+      var req_body = new window.FormData()
+      req_body.append('title', self.title)
+      req_body.append('description', self.description)
+      self.options.map(function(e){
+        req_body.append('options[]', e.data)
+      })
+      console.log(req_body.getAll('options[]'))
+      request.post("http://electa-engine.herokuapp.com/users/vote")
+        .set({'Authorization': 'Token token='+token})
+        .set({'crossDomain': true})
+        .send(req_body)
+        .end(function(err,res){
+          if (err) {
+          self.isLoginProgress = '';
+          console.log("Error Post Vote");
+          console.log(err);
+          }
+          if (res.status==201) {
+            console.log(res)
+            self.$router.push({ name: 'votelist_index'})
+          }else {
+            console.log(res)
+            self.isLoginProgress = '';
+            console.log("Password Salah");
+          }
+      });
+    },
+    getAllCategories(){
+      self = this;
+      request.get("http://electa-engine.herokuapp.com/votes/categories")
+        .set({'Content-Type': 'application/jsonp'})
+        .set({'crossDomain': true})
+        .end(function(err,res){
+          if (err) {
+          self.isLoginProgress = '';
+          console.log("Error Get Category");
+          console.log(err);
+          }
+          if (res.status==200) {
+            console.log(res)
+            self.categories = res.data.categories
+          }else {
+            console.log(res)
+          }
+      });
+    }
   }
 }
 </script>
