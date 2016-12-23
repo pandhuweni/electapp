@@ -8,7 +8,7 @@
         <li v-for="message in messages">
         <div class="wrapper">
           <div class="left text-center" >
-            <div class="img"></div>
+            <div class="img" :style="{background: generateColor()}"></div>
           </div>
           <div class="right">
             <div class="author">{{message.from_name}}</div>
@@ -27,6 +27,11 @@ export default {
   data() {
     return {
       messages: [{from_name: '', subject: ''}]
+    }
+  },
+  methods: {
+    generateColor(){
+      return randomColor()
     }
   },
   watch: {
@@ -87,6 +92,5 @@ export default {
   width:35px;
   height: 35px;
   display: block;
-  background: red;
 }
 </style>

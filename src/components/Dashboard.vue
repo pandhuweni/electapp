@@ -64,7 +64,9 @@ export default {
   },
   computed: {
     currentTab: function() { return this.$store.state.sideStatsTab },
-    chart_data: function() { return this.$store.state.chartData }
+    chart_data: function() { return this.$store.state.chartData },
+    chartFilterX: function() { return this.$store.state.chartFilterX },
+    chartFilterY: function() { return this.$store.state.chartFilterY },
   },
   methods: {
     trySyncChart(data) {
@@ -73,7 +75,8 @@ export default {
     loadChartStats(based_on) {
       var self = this
       var token = localStorage.getItem('token')
-      request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_chart?based_on="+based_on)
+      request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_chart?based_on="+based_on
+        +"&x_filter="+self.chartFilterX+"&y_filter="+self.chartFilterY)
         .set({"Authorization": "Token token="+token})
         .set({'Content-Type': 'application/json'})
         .set({'crossDomain': true})
@@ -160,13 +163,18 @@ export default {
   watch: {
     currentTab: function(){
       this.loadChartStats(this.currentTab)
+    },
+    chartFilterX: function(){
+      this.loadChartStats(this.currentTab)
+    },
+    chartFilterY: function(){
+      this.loadChartStats(this.currentTab)
     }
   },
   created(){
     this.loadMessages()
     this.loadTopStats()
     this.loadChartStats('recent')
-   
   }
 }
 </script>
