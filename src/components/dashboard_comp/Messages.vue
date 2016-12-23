@@ -5,14 +5,14 @@
     </div>
     <div class="panel-body">
       <ul class="card">
-        <li v-for="item in items">
-        <div class="wrapper" :class="{active: item.isUnread}">
+        <li v-for="message in messages">
+        <div class="wrapper">
           <div class="left text-center" >
             <div class="img"></div>
           </div>
           <div class="right">
-            <div class="author">{{item.author}}</div>
-            <div class="preview-msg">{{item.preview_msg}}</div>
+            <div class="author">{{message.from_name}}</div>
+            <div class="preview-msg">{{message.subject}}</div>
           </div>
         </div>
         </li>
@@ -25,10 +25,15 @@ export default {
   name: 'messages',
   props: ['title', 'items'],
   data() {
-		return {
-
-		}
-	}
+    return {
+      messages: [{from_name: '', subject: ''}]
+    }
+  },
+  watch: {
+    items: function(){
+      this.messages = this.items
+    }
+  },
 }
 </script>
 <style>

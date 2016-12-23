@@ -4,6 +4,7 @@
 <script>
 export default{ 
 	name: 'chart',
+	props: ['chartData'],
 	data() {
 		return {
 			data: {
@@ -14,9 +15,10 @@ export default{
 			series: {}
 		}
 	},
+	/*
 	computed: {
 		chartData: function(){ return this.$store.state.chartData }
-	},
+	},*/
 	watch: {
 		chartData: function() {
 			this.syncData()

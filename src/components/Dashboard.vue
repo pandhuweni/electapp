@@ -1,13 +1,13 @@
 <template>
 	<div class="container-fluid">
 	<div class="row">
-    	<topstats></topstats>
+    	<topstats :statsData="topStatsData"></topstats>
 	</div>
     <div class="row">
       <div class="col-md-9 col-sm-12">
         <div class="panel panel-default">
           <div class="panel-body">
-            <chart></chart>
+            <chart :chartData="chartData"></chart>
           </div>
         </div>
       </div>
@@ -49,15 +49,7 @@ export default {
 	},
   data(){
     return {
-      messages: [
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: true},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: true},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
-        {author:"aji", preview_msg: "this is some kind of weird task", isUnread: false},
-      ],
+      messages: [],
       histories: [
         {data: "this is some kind of weird task"},
         {data: "this is some kind of weird task"},
@@ -66,6 +58,8 @@ export default {
       side_data: [
         {participant:0, today: 0, top_region: "", top_education: "", top_profesion: "", modus_choice: "", max_value:"", min_value:""}
       ],
+      chartData: '',
+      topStatsData: {},
     }
   },
   computed: {
@@ -108,14 +102,60 @@ export default {
                 self.side_data[0].min_value = res.body.data.stat.min_value[1] + " (" + res.body.data.stat.min_value[0] + ")"
               }              
               if (Object.keys(res.body.data.chart).length > 0){
-                self.trySyncChart(res.body.data.chart)
+                self.chartData = res.body.data.chart
               }
             }
           }else {
             console.log(res)
           }
         });
+    },
+    loadTopStats() {
+      self = this
+      var token = localStorage.getItem('token')
+
+      request.get("http://electa-engine.herokuapp.com/analyzes/dashboard_top")
+        .set({"Authorization": "Token token="+token})
+        .set({'Content-Type': 'application/json'})
+        .set({'crossDomain': true})
+        .end(function(err,res){
+          if (err) {
+            console.log(err)
+          }
+          if (res.status==200) {
+            console.log(res)
+            self.topStatsData = {
+              'follower': res.body.follower_count,
+              'following': res.body.following_count,
+              'total_vote': res.body.total_vote,
+              'today_participant': res.body.today_participant_count
+            }
+          }else {
+            console.log(res)
+          }
+        });
+    },
+    loadMessages() {
+      self = this;
+      self.loadSpin="fa fa-spinner fa-pulse fa-fw";
+      var auth_token = localStorage.getItem('token')
+      request.get("http://electa-engine.herokuapp.com/users/messages?page=1&limit=10")
+        .set({'Content-Type': 'application/json '})
+        .set({'Authorization': 'Token token='+auth_token})
+        .set({'crossDomain': true})
+        .end(function(err,res){
+          if(err){
+            console.log(err)
+          }else{
+            if(res.status==200){
+              self.messages = res.body.data.messages
+            }else{
+              console.log(res)
+            }
+          }
+        });
     }
+
   },
   watch: {
     currentTab: function(){
@@ -123,7 +163,10 @@ export default {
     }
   },
   created(){
-    this.loadChartStats('popular')
+    this.loadMessages()
+    this.loadTopStats()
+    this.loadChartStats('recent')
+   
   }
 }
 </script>
