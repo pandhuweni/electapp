@@ -25,7 +25,7 @@
 
             <div class="form-group">
               <label>Featured Image</label>    
-              <input type="file" @change="onFileChange" class="btn btn-primary btn-block" />
+              <input v-if="!image"  type="file" @change="onFileChange" class="btn btn-primary btn-block" />
                <div class="col-xs-12 col-md-12 featured-image">
                 <div href="#" class="thumbnail">
                   <a v-if="image"  href="#" @click.stop.prevent="removeImage" class="btn btn-default btn-sm pull-right absolute-top">
@@ -90,26 +90,24 @@ export default{
 
     },
     uploadFeaturedImage(id){ 
+      self = this;
       var fileUpload = new FormData();
-      fileUpload.append('raw_file', image);
-      var req_body = {
-        'vote_id': id
-      }
+      var token = localStorage.getItem('token')
+      fileUpload.append('raw_file', self.image);
+      fileUpload.append('vote_id', id)
+      console.log("Self Images"+self.image)
       request.post("http://electa-engine.herokuapp.com/files/votes")
         .set({'Authorization': 'Token token='+token})
         .set({'crossDomain': true})
-        .send(req_body)
         .send(fileUpload)
         .end(function(err,res){
-          if (err) {
+          if (err) {  
           self.isLoginProgress = '';
           console.log("Error Post Image");
           console.log(err);
           }
           if (res.status==201) {
             console.log(res)
-            var feturedImageId = res.body.data.vote.id
-            self.$router.push({ name: 'votelist_index'})
           }else {
             console.log(res)
             self.isLoginProgress = '';
@@ -127,7 +125,7 @@ export default{
       var req_body = new window.FormData()
       req_body.append('title', self.title)
       req_body.append('description', self.description)
-      req_body.append('category_id', self.category_id)
+      req_body.append('vote_category_id', self.selected)
       self.options.map(function(e){
         req_body.append('options[]', e.data)
       })
@@ -144,7 +142,9 @@ export default{
           }
           if (res.status==201) {
             console.log(res)
-            var feturedImageId = res.body.data.vote.id
+            var featuredImageId = res.body.data.vote
+            self.uploadFeaturedImage(featuredImageId)
+            console.log("Proses Kelewat")
             self.$router.push({ name: 'votelist_index'})
           }else {
             console.log(res)
@@ -176,7 +176,7 @@ export default{
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length)
         return;
-      this.createImage(files[0]);
+        this.createImage(files[0]);
     },
     createImage(file) {
       var image = new Image();

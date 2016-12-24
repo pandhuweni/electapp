@@ -46,8 +46,11 @@
                 <td @click.stop.prevent="readVote(vote.id)">
                   {{vote.title}}
                 </td>
-                <td @click.stop.prevent="readVote(vote.id)">
+                <td v-if="vote.category == 'Uncategorized'" @click.stop.prevent="readVote(vote.id)">
                   {{vote.category}}
+                </td>
+                <td v-else @click.stop.prevent="readVote(vote.id)">
+                  {{vote.category.category}}
                 </td>
                 <td @click.stop.prevent="readVote(vote.id)">
                   <span class="label" :class="labelColor">
