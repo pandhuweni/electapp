@@ -150,10 +150,10 @@ var dateFormat = require('dateformat');
         }
     },
 		watch: {
-			selected: function(){
-				this.getAllMessages(this.selected, this.page)
-				localStorage.setItem('selectedCount',this.selected)
-			},
+				selected: function(){
+					this.getAllMessages(this.selected, this.page)
+					localStorage.setItem('selectedCount',this.selected)
+				},
 			page: function(){
 				this.getAllMessages(this.selected, this.page)
 			}
