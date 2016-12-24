@@ -6,6 +6,8 @@ export default new Vuex.Store({
   state: {
     sideStatsTab: 'recent',
     chartData: {},
+    chartFilterX: 'date',
+    chartFilterY: 'gender',
   },
 
   actions: {
@@ -14,7 +16,13 @@ export default new Vuex.Store({
     },
     syncChartData ({commit}, data) {
       commit('SYNC_CHART', data)
-    }
+    },
+    syncChartFilterX ({commit}, data) {
+      commit('SYNC_CHART_FILTER_X', data)
+    },
+    syncChartFilterY ({commit}, data) {
+      commit('SYNC_CHART_FILTER_Y', data)
+    },
   },
 
   mutations: {
@@ -24,7 +32,12 @@ export default new Vuex.Store({
     SYNC_CHART (state, data) {
       state.chartData = data
     },
-
+    SYNC_CHART_FILTER_X (state, data) {
+      state.chartFilterX = data
+    },
+    SYNC_CHART_FILTER_Y (state, data) {
+      state.chartFilterY = data
+    },
   },
 
 

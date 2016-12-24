@@ -15,6 +15,7 @@ import CreateVote from './components/votelist_comp/CreateVote'
 import store from './vuex/store'
 import VoteRead from './components/votelist_comp/VoteRead'
 import EditVote from './components/votelist_comp/EditVote'
+import Analyze from './components/votelist_comp/Analyze'
 var VueRouter = require('vue-router')
 var Vuex = require('vuex')
 
@@ -31,6 +32,7 @@ const routes = [
           { path: '/', name: 'votelist_index', component:VotesTable },
           { path: 'create', name: 'votelist_create', component:CreateVote },
           { path: 'read/:id', name: 'votelist_read', component:VoteRead },
+          { path: 'analyze/:id', name: 'vote_analyze', component:EditVote },
           { path: 'edit/:id', name: 'votelist_edit', component:EditVote },
           { path:"*", redirect:'votelist_index'}
         ]
