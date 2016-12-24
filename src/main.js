@@ -32,7 +32,7 @@ const routes = [
           { path: '/', name: 'votelist_index', component:VotesTable },
           { path: 'create', name: 'votelist_create', component:CreateVote },
           { path: 'read/:id', name: 'votelist_read', component:VoteRead },
-          { path: 'analyze/:id', name: 'vote_analyze', component:EditVote },
+          { path: 'analyze/:id', name: 'vote_analyze', component:Analyze },
           { path: 'edit/:id', name: 'votelist_edit', component:EditVote },
           { path:"*", redirect:'votelist_index'}
         ]

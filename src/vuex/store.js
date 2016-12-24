@@ -8,6 +8,7 @@ export default new Vuex.Store({
     chartData: {},
     chartFilterX: 'date',
     chartFilterY: 'gender',
+    optionsChoice: [],
   },
 
   actions: {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     syncChartFilterY ({commit}, data) {
       commit('SYNC_CHART_FILTER_Y', data)
     },
+    syncOptionsChoice ({commit}, data) {
+      commit('SYNC_OPTIONS_CHOICE', data)
+    },
   },
 
   mutations: {
@@ -37,6 +41,9 @@ export default new Vuex.Store({
     },
     SYNC_CHART_FILTER_Y (state, data) {
       state.chartFilterY = data
+    },
+    SYNC_OPTIONS_CHOICE (state, data) {
+      state.optionsChoice = data
     },
   },
 
