@@ -28,9 +28,9 @@
               <h4>Feature Image</h4>
               <div class="col-xs-12 col-md-12 featured-image">
 						    <a href="#" class="thumbnail">
-						    	<img 
+						    	<img v-if="detail.image == ''"
 						    	src="http://vignette3.wikia.nocookie.net/shokugekinosoma/images/6/60/No_Image_Available.png/revision/latest?cb=20150708082716">
-						    <!-- 	<img v-else v-bind:src="detail.image">	 -->					      
+						    	<img v-else v-bind:src="detail.image">						      
 						    </a>
 						  </div>
             </div>
