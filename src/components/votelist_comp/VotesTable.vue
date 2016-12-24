@@ -73,7 +73,7 @@
                     Delete
                   </button>
 
-                  <button class="btn btn-xs btn-primary">
+                  <button class="btn btn-xs btn-primary" @click.stop.prevent="goToAnalyzePage(vote.id)">
                     <i class="fa fa-magic"></i>
                     Analyze
                   </button>
@@ -221,6 +221,9 @@
       },
       goToEditPage(id){
         this.$router.push({ name: 'votelist_edit', params: { id: id }});
+      },
+      goToAnalyzePage(id){
+        this.$router.push({ name: 'vote_analyze', params: { id: id }});
       },
       deleteVote(){
         self = this;

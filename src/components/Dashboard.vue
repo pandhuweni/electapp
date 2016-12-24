@@ -98,7 +98,13 @@ export default {
               if (res.body.data.stat.max_value == "") {
                 self.side_data[0].max_value = ""
               } else {
-                self.side_data[0].max_value = res.body.data.stat.max_value[1] + " (" + res.body.data.stat.max_value[0] + ")"
+                var capt = ''
+                if (res.body.data.stat.max_value[0]==null){
+                  capt = 'Uncategorized'
+                } else {
+                  capt = res.body.data.stat.max_value[0]
+                }
+                self.side_data[0].max_value = res.body.data.stat.max_value[1] + " (" + capt + ")"
               }
               if (res.body.data.stat.min_value == ""){
                 self.side_data[0].min_value = ""
@@ -142,7 +148,6 @@ export default {
     },
     loadMessages() {
       self = this;
-      self.loadSpin="fa fa-spinner fa-pulse fa-fw";
       var auth_token = localStorage.getItem('token')
       request.get("http://electa-engine.herokuapp.com/users/messages?page=1&limit=10")
         .set({'Content-Type': 'application/json '})
