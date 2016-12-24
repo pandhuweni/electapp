@@ -1,5 +1,5 @@
 <template>
-	<div  style="padding-top: 15px">
+	<div class="chart-body" style="padding-top: 15px">
 		<div class="col-md-3">
 			<label><h4>{{title}}</h4></label>
 		</div>
@@ -18,14 +18,14 @@
 			</select>
 	  </div>
 	 
-	<div>
-		<canvas id="myChart"></canvas>
-	</div>
+		<div>
+			<canvas id="myChart"></canvas>
+		</div>
 	</div>
 </template>
 <script>
 export default{ 
-	name: 'chart',
+	name: 'voteChart',
 	props: ['chartData', 'titleData'],
 	data() {
 		return {
@@ -52,8 +52,8 @@ export default{
 		}
 	},
 	computed: {
-		chartFilter: function(){ return this.$store.state.chartFilterY },
-		chartX: function(){ return this.$store.state.chartX },
+		chartFilterY: function(){ return this.$store.state.chartFilterY },
+		chartFilterX: function(){ return this.$store.state.chartFilterX},
 	},
 	watch: {
 		chartData: function() {
@@ -110,3 +110,9 @@ export default{
 	}
 }
 </script>
+
+<style scoped>
+	.chart-body {
+		min-height: 300px;
+	}
+</style>
