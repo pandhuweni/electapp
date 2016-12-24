@@ -1,14 +1,9 @@
 <template>
 <div>
-	<div>
-		<label>
-			<h3>Options Analysis</h3>
-		</label>
-	</div>
 	<div class="progress" v-for="option in data">
 	  <div class="progress-bar" :class="syncProgressColor()" role="progressbar" aria-valuenow="option.percentage"
-	  aria-valuemin="0" aria-valuemax="100" :style="{width: (option.percentage).toString()+'%'}">
-	    <span>{{option.percentage}}% {{option.options}}  {{syncProgressBar()}}</span>
+	  @click.stop.prevent="changeOptions(option.id)" aria-valuemin="0" aria-valuemax="100" :style="{width: (option.percentage).toString()+'%'}">
+	    <span>{{option.percentage}}% {{option.options}} </span>
 	  </div>
 
 	</div>
@@ -26,9 +21,12 @@ export default {
 	computed: {
 		counter: function(){
 			this.progressCounter++
-		}
+		},
 	},
 	methods: {
+		changeOptions(id){
+			this.$store.dispatch('syncSelectedOpt', id)
+		},
 		syncProgressBar(){
 			if( this.progressCounter == 4){
 				this.progressCounter = 1
@@ -54,10 +52,16 @@ export default {
 <style scoped>
 .progress {
     position: relative !important;
+    height: 25px;
 
+}
+.progress:hover{ 
+	opacity: 0.6;
+	cursor: pointer;
 }
 
 .progress span {
+		line-height: 25px;
     position: absolute !important;
     display: block !important;
     width: 100% !important;

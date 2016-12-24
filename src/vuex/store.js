@@ -4,11 +4,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 
   state: {
+    gmapApi: 'AIzaSyBbk5WpDkOTIfkyHbQigoB9vF4Doh6y4Yg',
     sideStatsTab: 'recent',
     chartData: {},
     chartFilterX: 'date',
     chartFilterY: 'gender',
     optionsChoice: [],
+    selectedOpt: ''
   },
 
   actions: {
@@ -27,6 +29,9 @@ export default new Vuex.Store({
     syncOptionsChoice ({commit}, data) {
       commit('SYNC_OPTIONS_CHOICE', data)
     },
+    syncSelectedOpt ({commit}, data) {
+      commit('SYNC_SELECTED_OPT', data)
+    },
   },
 
   mutations: {
@@ -44,6 +49,9 @@ export default new Vuex.Store({
     },
     SYNC_OPTIONS_CHOICE (state, data) {
       state.optionsChoice = data
+    },
+    SYNC_SELECTED_OPT (state, data) {
+      state.selectedOpt = data
     },
   },
 
