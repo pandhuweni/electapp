@@ -4,6 +4,9 @@
 			<div class="row">
 				<div class="col-md-9">
           <div class="panel panel-default">
+            <div class="panel-heading">
+              <label><h4>{{vote_title}}</h4></label>
+            </div>
             <div class="panel-body">
               <voteChart :chartData="chartData" :titleData="vote_title"></voteChart>
             </div>

@@ -1,8 +1,5 @@
 <template>
 	<div class="chart-body" style="padding-top: 15px">
-		<div class="col-md-3">
-			<label><h4>{{title}}</h4></label>
-		</div>
 		<div class="form-group col-md-3 pull-right">
 	    <select class="form-control" v-model='selected1'>
 				<option v-for="option in options1" v-bind:value="option.value">
