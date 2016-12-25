@@ -38,10 +38,6 @@
 				  	<i class="fa"  :class="isSendProgress"></i>
 				  	{{isButtonSending}}
 				  </button>
-				  <p>{{toValue}}</p>
-				  <p>{{subjectValue}}</p>
-				  <p>{{contentValue}}</p>
-				  <p></p>
 				</div>
 			</div>			
 		</div>

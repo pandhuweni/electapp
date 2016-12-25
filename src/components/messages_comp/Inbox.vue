@@ -100,9 +100,6 @@
 				</div>
 			</div>
 		</div>
-		{{selected}}
-		{{checkedMessage}}
-		{{page}}
 	</div>
 </template>
 

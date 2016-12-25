@@ -48,9 +48,7 @@
               <div>
                 <button class="btn btn-primary" @click="addOption()"> Add Options</button>
               </div>
-            </div>
-            <div>{{options}}</div>
-            
+            </div>            
           </div>
           <div class="col-md-12 col-sm-12">            
             <div class="form-group pull-right">

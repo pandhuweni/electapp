@@ -35,7 +35,7 @@ x<template>
 	            <li><a href="#">Profile</a></li>
 	            <li><a href="#">Setting</a></li>
 	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Logout</a></li>
+	            <li @click="logOut()"><a href="#" >Logout</a></li>
 	          </ul>
 	        </li>
 	      </ul>
@@ -145,6 +145,10 @@ x<template>
 		}
 	},
     methods: {
+    	logOut() {
+    		localStorage.clear()
+    		this.$router.push({name: 'login'})
+    	},
 			sideNavToggle() {
 				$('#sidenav').toggleClass('showNav',100);
 			},

@@ -14,7 +14,7 @@
 		      <li>
 		        <span class="bullet-sq"></span>
 		        Ratio
-		        <span class="pull-right secondary-text">{{statsData.ratio}}</span>
+		        <span class="pull-right secondary-text">{{statsData.ratio}} %</span>
 		      </li>
 		      <li>
 		        <span class="bullet-sq"></span>

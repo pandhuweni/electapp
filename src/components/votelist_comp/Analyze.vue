@@ -26,10 +26,10 @@
 				</label>
 			</div>
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-9">
 					<OptionsAnalyze :data="optionsData"></OptionsAnalyze>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<OptionsStats :data="optionsStats"></OptionsStats>
 				</div>
 			</div>
