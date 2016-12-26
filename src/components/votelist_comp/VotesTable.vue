@@ -50,7 +50,7 @@
                   {{vote.category}}
                 </td>
                 <td v-else @click.stop.prevent="readVote(vote.id)">
-                  {{vote.category.category}}
+                  {{vote.category}}
                 </td>
                 <td @click.stop.prevent="readVote(vote.id)">
                   <span class="label" :class="labelColor">
