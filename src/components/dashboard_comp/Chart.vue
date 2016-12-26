@@ -1,8 +1,5 @@
 <template>
-	<div  style="padding-top: 15px">
-		<div class="col-md-3">
-			<label><h4>{{title}}</h4></label>
-		</div>
+	<div class="chart-body" style="padding-top: 15px">
 		<div class="form-group col-md-3 pull-right">
 	    <select class="form-control" v-model='selected1'>
 				<option v-for="option in options1" v-bind:value="option.value">
@@ -17,15 +14,15 @@
 			  </option>
 			</select>
 	  </div>
-	 
-	<div>
-		<canvas id="myChart"></canvas>
-	</div>
+
+		<div>
+			<canvas id="myChart"></canvas>
+		</div>
 	</div>
 </template>
 <script>
-export default{ 
-	name: 'chart',
+export default{
+	name: 'voteChart',
 	props: ['chartData', 'titleData'],
 	data() {
 		return {
@@ -52,8 +49,8 @@ export default{
 		}
 	},
 	computed: {
-		chartFilter: function(){ return this.$store.state.chartFilterY },
-		chartX: function(){ return this.$store.state.chartX },
+		chartFilterY: function(){ return this.$store.state.chartFilterY },
+		chartFilterX: function(){ return this.$store.state.chartFilterX},
 	},
 	watch: {
 		chartData: function() {
@@ -85,7 +82,7 @@ export default{
 		   		if(k1!="" && k1!=null) {
 			   		if(self.series[k1]==null){
 			   			self.series[k1] = [v1]
-			   		} else { 
+			   		} else {
 			   			self.series[k1].push(v1)
 			   		}
 		   		}
@@ -110,3 +107,9 @@ export default{
 	}
 }
 </script>
+
+<style scoped>
+	.chart-body {
+		min-height: 300px;
+	}
+</style>

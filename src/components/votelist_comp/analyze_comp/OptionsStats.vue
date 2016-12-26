@@ -29,7 +29,7 @@
 		      <li>
 		        <span class="bullet-sq"></span>
 		        Top Profesion
-		        <span class="pull-right secondary-text">{{statsData.top_profession}}</span>
+		        <span class="pull-right secondary-text">{{statsData.top_profesion}}</span>
 		      </li>
 		    </ul>
 		  </div>
@@ -49,7 +49,7 @@ export default{
 				top_region: '',
 				top_education: '',
 				top_profession: '',
-			}	
+			}
 		}
 	},
 	watch: {

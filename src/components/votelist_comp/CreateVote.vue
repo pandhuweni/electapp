@@ -20,19 +20,19 @@
             </div>
             <div class="form-group">
               <label>Description</label>
-              <textarea type="text" v-model="description" class="form-control" placeholder="Description" rows="5" required ></textarea> 
+              <textarea type="text" v-model="description" class="form-control" placeholder="Description" rows="5" required ></textarea>
             </div>
 
             <div class="form-group">
-              <label>Featured Image</label>    
+              <label>Featured Image</label>
               <input v-if="!image"  type="file" @change="onFileChange" class="btn btn-primary btn-block" />
                <div class="col-xs-12 col-md-12 featured-image">
                 <div href="#" class="thumbnail">
                   <a v-if="image"  href="#" @click.stop.prevent="removeImage" class="btn btn-default btn-sm pull-right absolute-top">
                     <i class="fa fa-close"></i>
                   </a>
-                  <img  v-if="!image" src="http://vignette3.wikia.nocookie.net/shokugekinosoma/images/6/60/No_Image_Available.png/revision/latest?cb=20150708082716">    
-                  <img  v-else="image" :src="image">             
+                  <img  v-if="!image" src="http://vignette3.wikia.nocookie.net/shokugekinosoma/images/6/60/No_Image_Available.png/revision/latest?cb=20150708082716">
+                  <img  v-else="image" :src="image">
                 </div>
               </div>
             </div>
@@ -44,17 +44,17 @@
               </div>
               <div class="form-group" v-for="option in options">
                 <input type="text"  v-model="option.data" class="form-control"  placeholder="Option">
-              </div>            
+              </div>
               <div>
                 <button class="btn btn-primary" @click="addOption()"> Add Options</button>
               </div>
-            </div>            
+            </div>
           </div>
-          <div class="col-md-12 col-sm-12">            
+          <div class="col-md-12 col-sm-12">
             <div class="form-group pull-right">
               <input type="submit" @click.stop.prevent="sendRequest()" class="btn btn-primary" value="Submit"  placeholder="Description">
             </div>
-          </div>          
+          </div>
         </div>
       </div>
     </div>
@@ -87,7 +87,7 @@ export default{
     uploadOptionImage(optionArray){
 
     },
-    uploadFeaturedImage(id){ 
+    uploadFeaturedImage(id){
       self = this;
       var fileUpload = new FormData();
       var token = localStorage.getItem('token')
@@ -99,7 +99,7 @@ export default{
         .set({'crossDomain': true})
         .send(fileUpload)
         .end(function(err,res){
-          if (err) {  
+          if (err) {
           self.isLoginProgress = '';
           console.log("Error Post Image");
           console.log(err);
@@ -141,7 +141,7 @@ export default{
           if (res.status==201) {
             console.log(res)
             var featuredImageId = res.body.data.vote
-            self.uploadFeaturedImage(featuredImageId)
+            //self.uploadFeaturedImage(featuredImageId)
             console.log("Proses Kelewat")
             self.$router.push({ name: 'votelist_index'})
           }else {
@@ -186,11 +186,11 @@ export default{
       };
       reader.readAsDataURL(file);
       console.log(image)
-    },    
+    },
     removeImage: function (e) {
       this.image = '';
     }
-  },  
+  },
   created: function(){
     this.selected = 'Uncategorized'
     this.getAllCategories();
@@ -222,6 +222,6 @@ export default{
     right: 5px;
     top: 5px;
     border-color: transparent !important;
-    border-radius: 0px; 
+    border-radius: 0px;
   }
 </style>

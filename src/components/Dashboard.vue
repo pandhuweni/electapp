@@ -6,6 +6,9 @@
     <div class="row">
       <div class="col-md-9 col-sm-12">
         <div class="panel panel-default">
+          <div class="panel-heading">
+            <label><h4>{{vote_title}}</h4></label>
+          </div>
           <div class="panel-body">
             <chart :chartData="chartData" :titleData="vote_title"></chart>
           </div>
@@ -94,6 +97,8 @@ export default {
               self.side_data[0].today = res.body.data.stat.today_participant_count
               self.side_data[0].top_region = res.body.data.stat.top_region
               self.side_data[0].top_education = res.body.data.stat.top_education
+              self.side_data[0].top_profesion = res.body.data.stat.top_profesion
+              self.side_data[0].top_region = res.body.data.stat.top_region
               self.side_data[0].modus_choice = res.body.data.stat.modus_choice
               if (res.body.data.stat.max_value == "") {
                 self.side_data[0].max_value = ""
@@ -110,10 +115,13 @@ export default {
                 self.side_data[0].min_value = ""
               } else {
                 self.side_data[0].min_value = res.body.data.stat.min_value[1] + " (" + res.body.data.stat.min_value[0] + ")"
-              }              
+              }
               if (Object.keys(res.body.data.chart).length > 0){
                 self.vote_title = res.body.data.stat.vote_title
                 self.chartData = res.body.data.chart
+              } else {
+                self.chartData = {}
+                self.vote_title = ""
               }
             }
           }else {
@@ -179,9 +187,16 @@ export default {
     }
   },
   created(){
+
     this.loadMessages()
     this.loadTopStats()
     this.loadChartStats('recent')
+  },
+  beforeCreate(){
+    NProgress.start()
+  },
+  mounted(){
+    NProgress.done();
   }
 }
 </script>

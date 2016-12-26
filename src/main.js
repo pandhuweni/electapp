@@ -21,11 +21,11 @@ var Vuex = require('vuex')
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
-
+NProgress.configure({ showSpinner: false });
 const routes = [
   { path: '/', component: App, name: 'home',
 		children:[
-	  	{ path: '/', name: 'index', component: Dashboard	},	  	
+	  	{ path: '/', name: 'index', component: Dashboard	},
 	  	{ path: 'dashboard', name: 'dashboard', component: Dashboard	},
 	  	{ path: 'votelist', name: 'votelist', component: Votelist,
         children: [

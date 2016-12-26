@@ -33,7 +33,7 @@
 					<OptionsStats :data="optionsStats"></OptionsStats>
 				</div>
 			</div>
-		</div>		
+		</div>
 	</div>
 </template>
 <script>
@@ -44,7 +44,7 @@ import voteChart from './analyze_comp/Vote'
 import SideStats from './analyze_comp/SideStats'
 //import map from './analyze_comp/Map'
 export default {
-	name: 'analyze', 
+	name: 'analyze',
 	data(){
 		return{
 			progressCounter: 1,
@@ -56,7 +56,7 @@ export default {
       chartData: '',
       vote_title: '',
 		}
-	}, 
+	},
 	components: {
 		OptionsAnalyze,
 		OptionsStats,
@@ -78,7 +78,7 @@ export default {
     },
     chartFilterY: function(){
       this.loadVoteChart()
-    }		
+    }
 	},
 	methods: {
 		loadData(){
@@ -100,7 +100,7 @@ export default {
               console.log(res)
             }
           }
-        });			
+        });
 		},
 		loadOptionStats(){
 			self = this
@@ -121,7 +121,7 @@ export default {
               console.log(res)
             }
           }
-        });	
+        });
 		},
 		loadVoteChart(){
       var self = this
@@ -145,6 +145,8 @@ export default {
               self.side_data[0].today = res.body.data.stat.today_participant_count
               self.side_data[0].top_region = res.body.data.stat.top_region
               self.side_data[0].top_education = res.body.data.stat.top_education
+              self.side_data[0].top_region = res.body.data.stat.top_region
+              self.side_data[0].top_profesion = res.body.data.stat.top_profesion
               self.side_data[0].modus_choice = res.body.data.stat.modus_choice
               if (res.body.data.stat.max_value == "") {
                 self.side_data[0].max_value = ""
@@ -161,7 +163,7 @@ export default {
                 self.side_data[0].min_value = ""
               } else {
                 self.side_data[0].min_value = res.body.data.stat.min_value[1] + " (" + res.body.data.stat.min_value[0] + ")"
-              }              
+              }
               if (Object.keys(res.body.data.chart).length > 0){
                 self.vote_title = res.body.data.stat.vote_title
                 self.chartData = res.body.data.chart
@@ -170,7 +172,7 @@ export default {
           }else {
             console.log(res)
           }
-        });			
+        });
 		}
 	},
 	created(){

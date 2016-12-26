@@ -23,8 +23,6 @@
                     <span class="clearfix"></span>
 	                </form>
 	            </div>
-              <div class="text-center">{{email}}  </div>
-              <div class="text-center">{{password}}  </div>
 	            <a  class="text-center new-account">Create an account </a>
 	        </div>
 	    </div>
@@ -63,7 +61,7 @@
         login(){
           self = this;
           self.inLoginProgress = 'fa fa-spinner fa-pulse fa-fw';
-          self.loginButton = 'Loading...';          
+          self.loginButton = 'Loading...';
           var req_body = {
             'email': self.email,
             'password': self.password

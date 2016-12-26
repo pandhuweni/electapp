@@ -8,12 +8,12 @@
 			  <div class="form-group col-md-6 col-sm-12">
 			    <label>From</label>
 			    <p>{{detail.from_name}}</p>
-			  </div>	
+			  </div>
 			  <div class="form-group  col-md-6 col-sm-12">
 			    <label>Date</label>
 			    <p>{{convertDate(detail.created_at)}}</p>
-			  </div>	
-				  
+			  </div>
+
 			  <div class="col-md-12 col-sm-12">
 			  	<div class="form-group">
 				    <label>Subject</label>
@@ -28,11 +28,10 @@
 				  	<i class="fa"  :class="isSendProgress"></i>
 				  	{{isButtonSending}}
 				  </button>
-				  <p>{{messages}}</p>
-				</div>				  
-			</div>			   
+				</div>
+			</div>
 		</div>
-	</div>		
+	</div>
 </template>
 
 <script>
