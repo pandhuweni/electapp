@@ -25,6 +25,10 @@
               <p class="description">{{convertDate(detail.created_at)}}</p>
             </div>
             <div class="form-group">
+              <h4>Category</h4>
+              <p class="description">{{detail.category}}</p>
+            </div>
+            <div class="form-group">
               <h4>Feature Image</h4>
               <div class="col-xs-12 col-md-12 featured-image">
 						    <a href="#" class="thumbnail">
@@ -148,7 +152,7 @@
       	var now = new Date()
       	var nows = dateFormat(now)
       	console.log(nows)
-      	if(this.detail.ended_at < nows && this.detail.started_at > nows){
+      	if(this.detail.status == "open"){
       		this.statusVote = "Open"
       		this.labelColor = "label-success"
       	}else{
@@ -188,5 +192,8 @@
 	}
 	.featured-image{
 		padding: 0px;
+	}
+	.fa-edit{
+		color: #f0ad4e;
 	}
 </style>

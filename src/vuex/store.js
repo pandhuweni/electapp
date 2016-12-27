@@ -10,7 +10,8 @@ export default new Vuex.Store({
     chartFilterX: 'date',
     chartFilterY: 'gender',
     optionsChoice: [],
-    selectedOpt: ''
+    selectedOpt: '',
+    selectedCategoryEdit:''
   },
 
   actions: {
@@ -32,6 +33,9 @@ export default new Vuex.Store({
     syncSelectedOpt ({commit}, data) {
       commit('SYNC_SELECTED_OPT', data)
     },
+    syncSelectedEdit ({commit}, data) {
+      commit('SYNC_SELECTED_EDIT', data)
+    },
   },
 
   mutations: {
@@ -52,6 +56,9 @@ export default new Vuex.Store({
     },
     SYNC_SELECTED_OPT (state, data) {
       state.selectedOpt = data
+    },    
+    SYNC_SELECTED_EDIT (state, data) {
+      state.selectedCategoryEdit = data
     },
   },
 

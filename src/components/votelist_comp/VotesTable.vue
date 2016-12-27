@@ -54,7 +54,7 @@
                 </td>
                 <td @click.stop.prevent="readVote(vote.id)">
                   <span class="label" :class="labelColor">
-                    {{getStatus(vote.id)}}
+                    {{getStatus(vote.status)}}
                   </span>
                 </td>
                 <td>
@@ -208,10 +208,9 @@
       readVote(id){
         this.$router.push({ name: 'votelist_read', params: { id: id }});
       },
-      getStatus(id){
-        var now = new Date()
-        var nows = dateFormat(now)
-        if(this.votes.ended_at < nows && this.votes.started_at > nows){         
+      getStatus(status){
+        console.log(this.votes.status)
+        if(status == "open"){         
           this.labelColor = "label-success" 
           return "Open"
         }else{
