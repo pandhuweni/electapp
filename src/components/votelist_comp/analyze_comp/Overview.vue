@@ -1,6 +1,5 @@
 <template>
 	<div>
-		this is overview
 		<div>
 			<canvas :id="oId"></canvas>
 		</div>
