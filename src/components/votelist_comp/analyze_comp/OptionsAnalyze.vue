@@ -1,6 +1,6 @@
 <template>
 <div>
-	<div class="progress" v-for="option in data">
+	<div class="progress" v-for="option in realData">
 	  <div class="progress-bar" :class="syncProgressColor()" role="progressbar" aria-valuenow="option.percentage"
 	  @click.stop.prevent="changeOptions(option.id)" aria-valuemin="0" aria-valuemax="100" :style="{width: (option.percentage).toString()+'%'}">
 	    <span>{{option.percentage}}% {{option.options}} </span>
@@ -16,12 +16,18 @@ export default {
 		return{
 			progressCounter: 1,
 			optionsData: [],
+			realData:[]
 		}
 	}, 
 	computed: {
 		counter: function(){
 			this.progressCounter++
 		},
+	},
+	watch: {
+		data: function(){
+			this.realData = this.data
+		}
 	},
 	methods: {
 		changeOptions(id){
