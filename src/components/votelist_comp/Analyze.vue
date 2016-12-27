@@ -20,11 +20,31 @@
           </div>
 				</div>
 			</div>
-			<div>
-				<label>
-					<h4>Options Analysis</h4>
-				</label>
-			</div>
+      
+			
+      <div>
+        <label><h4>Overviews</h4></label>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <Overview :oData="overviews_gender" oId="genderId"></Overview>
+        </div>
+        <div class="col-md-3">
+          <Overview :oData="overviews_city" oId="cityId"></Overview>
+        </div>
+        <div class="col-md-3">
+          <Overview :oData="overviews_profesion" oId="profesionId"></Overview>
+        </div>
+        <div class="col-md-3">
+          <Overview :oData="overviews_degree" oId="degreeId"></Overview>
+        </div>
+      </div>
+      <br/>
+      <div>
+        <label>
+          <h4>Options Analysis</h4>
+        </label>
+      </div>
 			<div class="row">
 				<div class="col-md-9">
 					<OptionsAnalyze :data="optionsData"></OptionsAnalyze>
@@ -42,6 +62,7 @@ import OptionsAnalyze from './analyze_comp/OptionsAnalyze'
 import OptionsStats from './analyze_comp/OptionsStats'
 import voteChart from './analyze_comp/Vote'
 import SideStats from './analyze_comp/SideStats'
+import Overview from './analyze_comp/Overview'
 //import map from './analyze_comp/Map'
 export default {
 	name: 'analyze',
@@ -50,6 +71,10 @@ export default {
 			progressCounter: 1,
 			optionsData: [],
 			optionsStats: '',
+      overviews_gender: {},
+      overviews_profesion: {},
+      overviews_city: {},
+      overviews_degree: {},
 			side_data: [
         {participant:0, today: 0, top_region: "", top_education: "", top_profesion: "", modus_choice: "", max_value:"", min_value:""}
       ],
@@ -61,8 +86,8 @@ export default {
 		OptionsAnalyze,
 		OptionsStats,
 		voteChart,
-    SideStats
-		//map
+    SideStats,
+    Overview,
 	},
 	computed: {
 		selectedOpt: function(){ return this.$store.state.selectedOpt},
@@ -94,8 +119,8 @@ export default {
             console.log(err)
           }else{
             if(res.status==200){
-            	console.log(res)
              	self.optionsData = res.body.data.vote.options
+
             }else{
               console.log(res)
             }
@@ -115,7 +140,6 @@ export default {
             console.log(err)
           }else{
             if(res.status==200){
-            	console.log(res)
              	self.optionsStats = res.body.data
             }else{
               console.log(res)
@@ -123,6 +147,32 @@ export default {
           }
         });
 		},
+    loadOverviewData(filter){ 
+      var self = this
+      var token = localStorage.getItem('token')
+      var vote_id = this.$route.params.id
+      request.get("http://electa-engine.herokuapp.com/analyzes/overviews/"+vote_id+"?filter="+filter)
+        .set({"Authorization": "Token token="+token})
+        .set({'Content-Type': 'application/json'})
+        .set({'crossDomain': true})
+        .end(function(err,res) {
+          if (err) {
+            console.log(err)
+          }
+          if (res.status==200) {
+            if(filter=='city') {
+              self.overviews_city = res.body.data
+              debugger
+            } else if(filter=='job') {
+              self.overviews_profesion = res.body.data
+            } else if(filter=='degree') {
+              self.overviews_degree = res.body.data
+            } else {
+              self.overviews_gender = res.body.data
+            }
+          }
+        })
+    },
 		loadVoteChart(){
       var self = this
       var token = localStorage.getItem('token')
@@ -140,7 +190,6 @@ export default {
             if(res.body.data.empty_data) {
               console.log(res)
             } else {
-              console.log(res)
               self.side_data[0].participant = res.body.data.stat.participant_count
               self.side_data[0].today = res.body.data.stat.today_participant_count
               self.side_data[0].top_region = res.body.data.stat.top_region
@@ -178,6 +227,10 @@ export default {
 	created(){
 		this.loadData()
 		this.loadVoteChart()
+    this.loadOverviewData('gender')
+    this.loadOverviewData('city')
+    this.loadOverviewData('job')
+    this.loadOverviewData('degree')
 	}
 }
 </script>
