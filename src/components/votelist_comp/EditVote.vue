@@ -238,6 +238,7 @@
                  	console.log(self.detail.title)
             			self.$router.push({ name: 'votelist_read'})
                 }else{
+                	alert('failed to edit vote')
                   console.log(request)
                 }
               }

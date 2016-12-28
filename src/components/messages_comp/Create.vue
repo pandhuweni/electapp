@@ -86,6 +86,7 @@
             }else {
               self.isLoginProgress = '';
               console.log("Failed Send");
+              alert('error when create vote')
             }
 
 		        self.isSendProgress = 'fa-paper-plane';
