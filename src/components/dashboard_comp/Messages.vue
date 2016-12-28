@@ -11,7 +11,7 @@
             <div class="img" :style="{background: generateColor()}"></div>
           </div>
           <div class="right">
-            <div class="author">{{message.to_name}}</div>
+            <div class="author">{{message.from_name}}</div>
             <div class="preview-msg">{{message.subject}}</div>
           </div>
         </div>

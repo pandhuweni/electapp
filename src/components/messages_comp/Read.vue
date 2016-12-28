@@ -7,7 +7,7 @@
 				</div>
 			  <div class="form-group col-md-6 col-sm-12">
 			    <label>From</label>
-			    <p>{{detail.to_name}}</p>
+			    <p>{{detail.from_name}}</p>
 			  </div>
 			  <div class="form-group  col-md-6 col-sm-12">
 			    <label>Date</label>
