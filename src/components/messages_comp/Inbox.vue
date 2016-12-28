@@ -85,7 +85,7 @@
 							    </label>
 								</td>
 								<td  @click.stop.prevent="readMessage(data.id)">
-									{{data.from_name}}
+									{{data.to_name}}
 								</td>
 								<td  @click.stop.prevent="readMessage(data.id)">
 									{{data.subject}}
