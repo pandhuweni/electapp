@@ -147,6 +147,7 @@ export default{
           }else {
             console.log(res)
             self.isLoginProgress = '';
+            alert('Failed Create Vote')
             console.log("Error Create Vote");
           }
       });

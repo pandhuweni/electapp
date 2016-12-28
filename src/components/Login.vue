@@ -4,7 +4,7 @@
 	        <div class="col-sm-6 col-md-4 col-md-offset-4">
 	            <h1 class="text-center login-title">Sign in to Electa</h1>
 	            <div class="account-wall">
-	                <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+	                <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120s"
 	                    alt="">
 	                <form class="form-signin">
 	                <input type="text" class="form-control" v-model="email" placeholder="Email" required  autofocus>
@@ -84,6 +84,7 @@
                 self.$router.push({ name: 'dashboard'});
               }else {
                 self.isLoginProgress = '';
+                alert('Invalid username or password!')
                 console.log("Password Salah");
               }
           });
@@ -96,7 +97,11 @@
 
 </script>
 <style scoped>
+.btn-primary{
+  background-color: rgba(0,128,128,.8);
+}
 	.form-signin
+
 {
     max-width: 330px;
     padding: 15px;
