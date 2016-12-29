@@ -21,9 +21,9 @@
 	padding: 0px;
 	height: 100% !important;
 	z-index: 1;
-}
-*{
-	border:none;
-	border-radius:0px !important;
-}
+	}
+	*{
+		border:none;
+		border-radius:0px !important;
+	}
 </style>
